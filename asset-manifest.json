@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kridion_bilikal/static/css/main.e6c13ad2.css",
+    "main.js": "/kridion_bilikal/static/js/main.9ab25450.js",
+    "static/js/453.5fd8d6c2.chunk.js": "/kridion_bilikal/static/js/453.5fd8d6c2.chunk.js",
+    "index.html": "/kridion_bilikal/index.html",
+    "main.e6c13ad2.css.map": "/kridion_bilikal/static/css/main.e6c13ad2.css.map",
+    "main.9ab25450.js.map": "/kridion_bilikal/static/js/main.9ab25450.js.map",
+    "453.5fd8d6c2.chunk.js.map": "/kridion_bilikal/static/js/453.5fd8d6c2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.9ab25450.js"
+  ]
+}
