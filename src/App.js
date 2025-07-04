@@ -1,10 +1,8 @@
-import React from 'react';
-import TeakSpiceStore from './TeakSpiceStore';
+import React from "react";
+import TeakSpiceStore from "./TeakSpiceStore";
 
 function App() {
-  return (
-    <TeakSpiceStore />
-  );
+  return <TeakSpiceStore />;
 }
 
 export default App;
