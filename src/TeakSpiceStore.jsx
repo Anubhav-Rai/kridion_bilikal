@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import ProductCard from './components/ProductCard';
@@ -8,86 +8,210 @@ import CartView from './components/CartView';
 import OrdersView from './components/OrdersView';
 import WishlistView from './components/WishlistView';
 import ProfileView from './components/ProfileView';
-import { products } from './data/products';
 import CompanyInfo from './components/CompanyInfo';
-
 
 const TeakSpiceStore = () => {
   // App state
   const [user, setUser] = useState(null);
   const [currentView, setCurrentView] = useState('home');
+  const [products, setProducts] = useState([]); // always an array!
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [address, setAddress] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Auth Handlers (Simulated)
-  const handleLogin = (email, password) => {
+  // JWT Helper
+  const getToken = () => localStorage.getItem('token');
+  const authHeader = () => ({ Authorization: `Bearer ${getToken()}` });
+
+  // Fetch products on mount
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => setProducts(Array.isArray(data) ? data : []))
+      .catch(() => setProducts([]));
+  }, []);
+
+  // Try auto-login on mount
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      fetch('/api/user/profile', { headers: authHeader() })
+        .then(res => res.ok ? res.json() : null)
+        .then(u => { if (u) setUser(u); })
+        .catch(() => {});
+    }
+  }, []);
+
+  // Fetch user-specific data after login
+  useEffect(() => {
+    if (user) {
+      fetch('/api/cart', { headers: authHeader() })
+        .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+      fetch('/api/wishlist', { headers: authHeader() })
+        .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
+      fetch('/api/orders', { headers: authHeader() })
+        .then(res => res.json()).then(data => setOrders(Array.isArray(data) ? data : []));
+    } else {
+      setCart([]); setWishlist([]); setOrders([]);
+    }
+  }, [user]);
+
+  // --- Auth Handlers (REAL) ---
+  const handleLogin = async (email, password) => {
     if (!email || !password) return alert('Please fill all fields');
-    setUser({ id: 1, name: 'John Doe', email, phone: '+91 9876543210' });
-    setCurrentView('home');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (!res.ok) {
+        alert('Login failed');
+        setLoading(false);
+        return;
+      }
+      const result = await res.json();
+      setUser(result.user);
+      localStorage.setItem('token', result.token);
+      setCurrentView('home');
+    } catch (e) {
+      alert('Login error');
+    }
+    setLoading(false);
   };
-  const handleRegister = ({ name, email, phone, password }) => {
+
+  const handleRegister = async ({ name, email, phone, password }) => {
     if (!name || !email || !phone || !password) return alert('Please fill all fields');
-    setUser({ id: 1, name, email, phone });
-    setCurrentView('home');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, password })
+      });
+      if (!res.ok) {
+        alert('Registration failed');
+        setLoading(false);
+        return;
+      }
+      // Auto-login after register
+      await handleLogin(email, password);
+    } catch (e) {
+      alert('Registration error');
+    }
+    setLoading(false);
   };
+
   const handleLogout = () => {
     setUser(null);
     setCart([]);
     setOrders([]);
     setWishlist([]);
+    localStorage.removeItem('token');
     setCurrentView('home');
   };
 
-  // Cart Handlers
-  const addToCart = (productId, quantity = 1) => {
-    const product = products.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-    if (existingItem) {
-      setCart(cart.map(item =>
-        item.id === productId ? { ...item, quantity: item.quantity + quantity } : item
-      ));
-    } else {
-      setCart([...cart, { ...product, quantity }]);
+  // --- Cart Handlers ---
+  const addToCart = async (productId, quantity = 1) => {
+    if (!user) {
+      setCurrentView('login');
+      return;
     }
+    await fetch('/api/cart', {
+      method: 'POST',
+      headers: { ...authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId, quantity })
+    });
+    // Refresh cart
+    fetch('/api/cart', { headers: authHeader() })
+      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
   };
-  const removeFromCart = (productId) => setCart(cart.filter(item => item.id !== productId));
-  const updateCartQuantity = (productId, newQuantity) => {
-    if (newQuantity <= 0) return removeFromCart(productId);
-    setCart(cart.map(item => item.id === productId ? { ...item, quantity: newQuantity } : item));
+
+  const removeFromCart = async (productId) => {
+    await fetch(`/api/cart/${productId}`, {
+      method: 'DELETE',
+      headers: authHeader()
+    });
+    fetch('/api/cart', { headers: authHeader() })
+      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
   };
-  const getCartTotal = () => cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  const updateCartQuantity = async (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      await removeFromCart(productId);
+      return;
+    }
+    await fetch(`/api/cart/${productId}`, {
+      method: 'PUT',
+      headers: { ...authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quantity: newQuantity })
+    });
+    fetch('/api/cart', { headers: authHeader() })
+      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce((total, item) => {
+      const prod = products.find(
+        p => (p.id === item.productId || p._id === item.productId || p._id === item.id)
+      );
+      return total + (prod ? prod.price * item.quantity : 0);
+    }, 0);
+  };
+
   const getCartCount = () => cart.reduce((count, item) => count + item.quantity, 0);
 
-  // Wishlist Handler
-  const toggleWishlist = (productId) => {
-    if (wishlist.includes(productId)) setWishlist(wishlist.filter(id => id !== productId));
-    else setWishlist([...wishlist, productId]);
+  // --- Wishlist Handlers ---
+  const toggleWishlist = async (productId) => {
+    if (!user) {
+      setCurrentView('login');
+      return;
+    }
+    if (wishlist.includes(productId)) {
+      await fetch(`/api/wishlist/${productId}`, { method: 'DELETE', headers: authHeader() });
+    } else {
+      await fetch('/api/wishlist', {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId })
+      });
+    }
+    fetch('/api/wishlist', { headers: authHeader() })
+      .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
   };
 
-  // Order Handler (Simulated)
-  const placeOrder = () => {
+  // --- Order Handler ---
+  const placeOrder = async () => {
     if (!address) return alert('Please enter delivery address');
-    const newOrder = {
-      id: `TK${Date.now()}`,
-      items: [...cart],
-      total: getCartTotal(),
-      date: new Date().toISOString(),
-      status: 'Processing',
-      customer: { ...user, address }
-    };
-    setOrders([...orders, newOrder]);
+    const orderItems = cart.map(item => ({
+      productId: item.productId || item.id,
+      quantity: item.quantity
+    }));
+    const res = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { ...authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ address, items: orderItems })
+    });
+    if (!res.ok) {
+      alert('Order failed');
+      return;
+    }
+    // Refresh orders and cart
+    fetch('/api/orders', { headers: authHeader() })
+      .then(res => res.json()).then(data => setOrders(Array.isArray(data) ? data : []));
     setCart([]);
     setAddress('');
-    alert(`Order placed successfully! Order ID: ${newOrder.id}`);
+    alert('Order placed successfully!');
     setCurrentView('orders');
   };
 
-  // Navigation handler
+  // --- Navigation handler ---
   const handleNav = (view) => setCurrentView(view);
 
-  // Rendering
+  // --- Rendering ---
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 p-4">
       <div className="max-w-6xl mx-auto">
@@ -105,16 +229,20 @@ const TeakSpiceStore = () => {
             <>
               <CompanyInfo />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {products.map(product => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    user={user}
-                    wishlist={wishlist}
-                    onAddToCart={addToCart}
-                    onToggleWishlist={toggleWishlist}
-                  />
-                ))}
+                {Array.isArray(products) && products.length > 0 ? (
+                  products.map(product => (
+                    <ProductCard
+                      key={product.id || product._id}
+                      product={product}
+                      user={user}
+                      wishlist={wishlist}
+                      onAddToCart={addToCart}
+                      onToggleWishlist={toggleWishlist}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center text-gray-700 py-8">No products available.</div>
+                )}
               </div>
             </>
           )}
@@ -123,12 +251,14 @@ const TeakSpiceStore = () => {
             <LoginForm
               onLogin={handleLogin}
               onSwitchToRegister={() => setCurrentView('register')}
+              loading={loading}
             />
           )}
           {currentView === 'register' && (
             <RegisterForm
               onRegister={handleRegister}
               onSwitchToLogin={() => setCurrentView('login')}
+              loading={loading}
             />
           )}
           {currentView === 'cart' && (
