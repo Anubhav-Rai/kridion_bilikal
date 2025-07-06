@@ -1,336 +1,308 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
+import ProductCard from './components/ProductCard';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
+import CartView from './components/CartView';
+import OrdersView from './components/OrdersView';
+import WishlistView from './components/WishlistView';
+import ProfileView from './components/ProfileView';
+import CompanyInfo from './components/CompanyInfo';
 
-const styles = {
-  body: {
-    fontFamily: "'Arial', sans-serif",
-    lineHeight: 1.6,
-    color: "#333",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    minHeight: "100vh",
-    margin: 0,
-    padding: 0,
-  },
-  container: {
-    maxWidth: 1200,
-    margin: "0 auto",
-    padding: 20,
-  },
-  header: {
-    background: "rgba(255,255,255,0.95)",
-    backdropFilter: "blur(10px)",
-    borderRadius: 20,
-    padding: 30,
-    marginBottom: 30,
-    boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-    textAlign: "center",
-  },
-  logo: {
-    fontSize: "3rem",
-    fontWeight: "bold",
-    color: "#8B4513",
-    textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
-    marginBottom: 10,
-  },
-  tagline: {
-    fontSize: "1.2rem",
-    color: "#666",
-    fontStyle: "italic",
-    marginBottom: 20,
-  },
-  companyInfo: {
-    background: "rgba(255,255,255,0.95)",
-    backdropFilter: "blur(10px)",
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 30,
-    boxShadow: "0 6px 24px rgba(0,0,0,0.1)",
-  },
-  companyTitle: {
-    color: "#2c3e50",
-    marginBottom: 15,
-    fontSize: "1.4rem",
-  },
-  companyDetails: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: 20,
-    marginBottom: 15,
-  },
-  detailItem: {
-    background: "rgba(240,240,240,0.7)",
-    padding: 15,
-    borderRadius: 10,
-    borderLeft: "4px solid #3498db",
-  },
-  detailLabel: {
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 5,
-  },
-  detailValue: {
-    color: "#666",
-  },
-  productsSection: {
-    marginBottom: 30,
-  },
-  sectionTitle: {
-    fontSize: "2.5rem",
-    color: "white",
-    textAlign: "center",
-    marginBottom: 30,
-    textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-  },
-  productsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
-    gap: 30,
-    marginBottom: 40,
-  },
-  productCard: {
-    background: "rgba(255,255,255,0.95)",
-    borderRadius: 20,
-    padding: 40,
-    textAlign: "center",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    backdropFilter: "blur(10px)",
-  },
-  productImage: {
-    width: 200,
-    height: 200,
-    background: "linear-gradient(45deg, #f0f0f0, #e0e0e0)",
-    borderRadius: 15,
-    margin: "0 auto 20px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "5rem",
-    boxShadow: "inset 0 4px 8px rgba(0,0,0,0.1)",
-  },
-  productTitle: {
-    fontSize: "2rem",
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 15,
-  },
-  productDescription: {
-    color: "#666",
-    marginBottom: 20,
-    lineHeight: 1.6,
-    fontSize: "1.1rem",
-  },
-  productPrice: {
-    fontSize: "2.5rem",
-    fontWeight: "bold",
-    color: "#27ae60",
-    marginBottom: 20,
-  },
-  productFeatures: {
-    background: "rgba(240,248,255,0.8)",
-    borderRadius: 15,
-    padding: 20,
-    marginTop: 20,
-    textAlign: "left",
-  },
-  featuresTitle: {
-    fontSize: "1.3rem",
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  featuresList: {
-    listStyle: "none",
-    padding: 0,
-    margin: 0,
-  },
-  featureLi: {
-    padding: "8px 0",
-    borderBottom: "1px solid rgba(0,0,0,0.1)",
-    color: "#555",
-    display: "flex",
-    alignItems: "center",
-  },
-  featureIcon: {
-    color: "#27ae60",
-    fontWeight: "bold",
-    marginRight: 10,
-  },
-  contactSection: {
-    background: "rgba(255,255,255,0.95)",
-    backdropFilter: "blur(10px)",
-    borderRadius: 20,
-    padding: 40,
-    textAlign: "center",
-    boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-    marginTop: 30,
-  },
-  contactTitle: {
-    fontSize: "2rem",
-    color: "#2c3e50",
-    marginBottom: 20,
-  },
-  contactInfo: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: 20,
-    marginTop: 20,
-  },
-  contactItem: {
-    background: "rgba(240,240,240,0.7)",
-    padding: 20,
-    borderRadius: 15,
-    borderLeft: "4px solid #3498db",
-  },
-  contactItemH4: {
-    color: "#2c3e50",
-    marginBottom: 10,
-  },
-  // Responsive: Adjust for mobile
-  '@media (max-width: 768px)': {
-    productsGrid: {
-      gridTemplateColumns: "1fr",
-    },
-    companyDetails: {
-      gridTemplateColumns: "1fr",
-    },
-    contactInfo: {
-      gridTemplateColumns: "1fr",
-    },
-    productCard: {
-      padding: 20,
-    },
-  },
+const normalizeOrders = (data) => {
+  return Array.isArray(data) ? data.map(order => ({
+    ...order,
+    userId: order.userid || order.userId,
+    items: Array.isArray(order.items) ? order.items.map(item => ({
+      ...item,
+      productId: item.productid || item.productId,
+    })) : [],
+  })) : [];
 };
 
-const featuresTeak = [
-  "100% Sustainable Teak Wood",
-  "Natural Antimicrobial Properties",
-  "Handcrafted by Skilled Artisans",
-  "Unique Grain Patterns",
-  "Durable & Long-lasting",
-  "Single Peice Wood with no Adhesive",
-  "Easy to Clean & Maintain",
-];
 
-const featuresElaichi = [
-  "100g Premium Quality Pack",
-  "Sourced from Finest Plantations",
-  "Fresh & Aromatic",
-  "Perfect for Teas & Desserts",
-  "Traditional Cooking Essential",
-  "Natural & Pure",
-  "Sealed for Freshness",
-];
+const TeakSpiceStore = () => {
+  // App state
+  const [user, setUser] = useState(null);
+  const [currentView, setCurrentView] = useState('home');
+  const [products, setProducts] = useState([]); // always an array!
+  const [cart, setCart] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [address, setAddress] = useState('');
+  const [loading, setLoading] = useState(false);
 
-export default function TeakSpiceStore() {
-  React.useEffect(() => {
-    // Set page background from JS for single-file usage (since <body> tag can't be styled in a React component root)
-    document.body.style = "";
-    for (let k in styles.body) document.body.style[k] = styles.body[k];
-    return () => { document.body.style = ""; };
+  // JWT Helper
+  const getToken = () => localStorage.getItem('token');
+  const authHeader = () => ({ Authorization: `Bearer ${getToken()}` });
+
+  // Fetch products on mount
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => setProducts(Array.isArray(data) ? data : []))
+      .catch(() => setProducts([]));
   }, []);
-  
+
+  // Try auto-login on mount
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      fetch('/api/user/profile', { headers: authHeader() })
+        .then(res => res.ok ? res.json() : null)
+        .then(u => { if (u) setUser(u); })
+        .catch(() => {});
+    }
+  }, []);
+
+  // Fetch user-specific data after login
+  useEffect(() => {
+    if (user) {
+      fetch('/api/cart', { headers: authHeader() })
+        .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+      fetch('/api/wishlist', { headers: authHeader() })
+        .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
+      fetch('/api/orders', { headers: authHeader() })
+        .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
+    } else {
+      setCart([]); setWishlist([]); setOrders([]);
+    }
+  }, [user]);
+
+  // --- Auth Handlers (REAL) ---
+  const handleLogin = async (email, password) => {
+    if (!email || !password) return alert('Please fill all fields');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (!res.ok) {
+        alert('Login failed');
+        setLoading(false);
+        return;
+      }
+      const result = await res.json();
+      setUser(result.user);
+      localStorage.setItem('token', result.token);
+      setCurrentView('home');
+    } catch (e) {
+      alert('Login error');
+    }
+    setLoading(false);
+  };
+
+  const handleRegister = async ({ name, email, phone, password }) => {
+    if (!name || !email || !phone || !password) return alert('Please fill all fields');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, password })
+      });
+      if (!res.ok) {
+        alert('Registration failed');
+        setLoading(false);
+        return;
+      }
+      // Auto-login after register
+      await handleLogin(email, password);
+    } catch (e) {
+      alert('Registration error');
+    }
+    setLoading(false);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setCart([]);
+    setOrders([]);
+    setWishlist([]);
+    localStorage.removeItem('token');
+    setCurrentView('home');
+  };
+
+  // --- Cart Handlers ---
+  const addToCart = async (productId, quantity = 1) => {
+    if (!user) {
+      setCurrentView('login');
+      return;
+    }
+    await fetch('/api/cart', {
+      method: 'POST',
+      headers: { ...authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId, quantity })
+    });
+    // Refresh cart
+    fetch('/api/cart', { headers: authHeader() })
+      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+  };
+
+  const removeFromCart = async (productId) => {
+    await fetch(`/api/cart/${productId}`, {
+      method: 'DELETE',
+      headers: authHeader()
+    });
+    fetch('/api/cart', { headers: authHeader() })
+      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+  };
+
+  const updateCartQuantity = async (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      await removeFromCart(productId);
+      return;
+    }
+    await fetch(`/api/cart/${productId}`, {
+      method: 'PUT',
+      headers: { ...authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quantity: newQuantity })
+    });
+    fetch('/api/cart', { headers: authHeader() })
+      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce((total, item) => {
+      const prod = products.find(
+        p => (p.id === item.productId || p._id === item.productId || p._id === item.id)
+      );
+      return total + (prod ? prod.price * item.quantity : 0);
+    }, 0);
+  };
+
+  const getCartCount = () => cart.reduce((count, item) => count + item.quantity, 0);
+
+  // --- Wishlist Handlers ---
+  const toggleWishlist = async (productId) => {
+    if (!user) {
+      setCurrentView('login');
+      return;
+    }
+    if (wishlist.includes(productId)) {
+      await fetch(`/api/wishlist/${productId}`, { method: 'DELETE', headers: authHeader() });
+    } else {
+      await fetch('/api/wishlist', {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId })
+      });
+    }
+    fetch('/api/wishlist', { headers: authHeader() })
+      .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
+  };
+
+  // --- Order Handler ---
+  const placeOrder = async () => {
+    if (!address) return alert('Please enter delivery address');
+    const orderItems = cart.map(item => ({
+      productId: item.productId || item.id,
+      quantity: item.quantity
+    }));
+    const res = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { ...authHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ address, items: orderItems })
+    });
+    if (!res.ok) {
+      alert('Order failed');
+      return;
+    }
+    // Refresh orders and cart
+    fetch('/api/orders', { headers: authHeader() })
+      .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
+    setCart([]);
+    setAddress('');
+    alert('Order placed successfully!');
+    setCurrentView('orders');
+  };
+
+  // --- Navigation handler ---
+  const handleNav = (view) => setCurrentView(view);
+
+  // --- Rendering ---
+  console.log("TeakSpiceStore: orders state", orders);
   return (
-    <div style={styles.container}>
-      {/* Header */}
-      <header style={styles.header}>
-        <div style={styles.logo}>🌿 Kridion </div>
-        <div style={styles.tagline}>Premium Kitchen Essentials & Authentic Spices</div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 p-4">
+      <div className="max-w-6xl mx-auto">
+        <Header
+          user={user}
+          cartCount={getCartCount()}
+          onLogout={handleLogout}
+          onNav={handleNav}
+          onLogin={() => setCurrentView('login')}
+          onRegister={() => setCurrentView('register')}
+        />
+        <Navigation user={user} currentView={currentView} onNav={handleNav} />
+        <main>
+          {currentView === 'home' && (
+            <>
+              <CompanyInfo />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {Array.isArray(products) && products.length > 0 ? (
+                  products.map(product => (
+                    <ProductCard
+                      key={product.id || product._id}
+                      product={product}
+                      user={user}
+                      wishlist={wishlist}
+                      onAddToCart={addToCart}
+                      onToggleWishlist={toggleWishlist}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center text-gray-700 py-8">No products available.</div>
+                )}
+              </div>
+            </>
+          )}
 
-      {/* Company Info */}
-      <div style={styles.companyInfo}>
-        <h3 style={styles.companyTitle}>📋 Company Information</h3>
-        <div style={styles.companyDetails}>
-          <div style={styles.detailItem}>
-            <div style={styles.detailLabel}>GSTIN Number</div>
-            <div style={styles.detailValue}>2322143452342</div>
-          </div>
-          <div style={styles.detailItem}>
-            <div style={styles.detailLabel}>Business Type</div>
-            <div style={styles.detailValue}>Premium Kitchen Essentials & Spices</div>
-          </div>
-          <div style={styles.detailItem}>
-            <div style={styles.detailLabel}>Established</div>
-            <div style={styles.detailValue}>Serving quality since 2023</div>
-          </div>
-          <div style={styles.detailItem}>
-            <div style={styles.detailLabel}>Specialty</div>
-            <div style={styles.detailValue}>Handcrafted Wood Products & Authentic Spices</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Products */}
-      <div style={styles.productsSection}>
-        <h2 style={styles.sectionTitle}>🛍️ Our Premium Products</h2>
-        <div style={styles.productsGrid}>
-          {/* Product 1: Teak Chopping Board */}
-          <div style={styles.productCard}>
-            <div style={styles.productImage}>🪵</div>
-            <h2 style={styles.productTitle}>Premium Teak Wood Chopping Board</h2>
-            <p style={styles.productDescription}>
-              Handcrafted from sustainable teak wood, each board is unique with beautiful grain patterns. Perfect for all your kitchen needs with natural antimicrobial properties.
-            </p>
-            <div style={styles.productPrice}>Starting ₹999</div>
-            <div style={styles.productFeatures}>
-              <h4 style={styles.featuresTitle}>Key Features</h4>
-              <ul style={styles.featuresList}>
-                {featuresTeak.map((f, idx) => (
-                  <li key={idx} style={styles.featureLi}>
-                    <span style={styles.featureIcon}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Product 2: Elaichi */}
-          <div style={styles.productCard}>
-            <div style={styles.productImage}>🌿</div>
-            <h2 style={styles.productTitle}>Premium Green Elaichi (Cardamom)</h2>
-            <p style={styles.productDescription}>
-              Fresh, aromatic green cardamom pods sourced from the finest plantations. Perfect for teas, desserts, and traditional cooking. Premium quality guaranteed.
-            </p>
-            <div style={styles.productPrice}>Starting ₹399 @100 gm</div>
-            <div style={styles.productFeatures}>
-              <h4 style={styles.featuresTitle}>Product Details</h4>
-              <ul style={styles.featuresList}>
-                {featuresElaichi.map((f, idx) => (
-                  <li key={idx} style={styles.featureLi}>
-                    <span style={styles.featureIcon}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact Section */}
-      <div style={styles.contactSection}>
-        <h2 style={styles.contactTitle}>📞 Get in Touch</h2>
-        <p>For orders, inquiries, or custom requirements, please contact us:</p>
-        <div style={styles.contactInfo}>
-          <div style={styles.contactItem}>
-            <h4 style={styles.contactItemH4}>📧 Email</h4>
-            <p>info@kridion.com</p>
-          </div>
-          <div style={styles.contactItem}>
-            <h4 style={styles.contactItemH4}>📱 Phone</h4>
-            <p>+91 98765 43210</p>
-          </div>
-          <div style={styles.contactItem}>
-            <h4 style={styles.contactItemH4}>⏰ Business Hours</h4>
-            <p>Mon-Sat: 9:00 AM - 6:00 PM</p>
-          </div>
-          <div style={styles.contactItem}>
-            <h4 style={styles.contactItemH4}>🚚 Delivery</h4>
-            <p>Pan India Shipping Available</p>
-          </div>
-        </div>
+          {currentView === 'login' && (
+            <LoginForm
+              onLogin={handleLogin}
+              onSwitchToRegister={() => setCurrentView('register')}
+              loading={loading}
+            />
+          )}
+          {currentView === 'register' && (
+            <RegisterForm
+              onRegister={handleRegister}
+              onSwitchToLogin={() => setCurrentView('login')}
+              loading={loading}
+            />
+          )}
+          {currentView === 'cart' && (
+            <CartView
+              cart={cart}
+              user={user}
+              address={address}
+              onUpdateAddress={setAddress}
+              onPlaceOrder={placeOrder}
+              onNav={handleNav}
+              onUpdateQuantity={updateCartQuantity}
+              onRemoveFromCart={removeFromCart}
+              getCartTotal={getCartTotal}
+              products={products}
+            />
+          )}
+          {currentView === 'orders' && user && <OrdersView orders={orders} products={products} />}
+          {currentView === 'wishlist' && user && (
+            <WishlistView
+              products={products}
+              wishlist={wishlist}
+              user={user}
+              onAddToCart={addToCart}
+              onToggleWishlist={toggleWishlist}
+            />
+          )}
+          {currentView === 'profile' && user && <ProfileView user={user} />}
+        </main>
       </div>
     </div>
   );
-}
+};
+
+export default TeakSpiceStore;
