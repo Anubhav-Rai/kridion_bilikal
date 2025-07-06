@@ -10,7 +10,8 @@ const CartView = ({
   onNav,
   onUpdateQuantity,
   onRemoveFromCart,
-  getCartTotal
+  getCartTotal,
+  products // <-- Accept products as prop!
 }) => (
   <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
     <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
@@ -27,36 +28,43 @@ const CartView = ({
       </div>
     ) : (
       <div>
-        {cart.map(item => (
-          <div key={item.id} className="flex items-center gap-4 p-4 border-b border-gray-200">
-            <div className="text-4xl">{item.image}</div>
-            <div className="flex-1">
-              <h3 className="font-semibold">{item.name}</h3>
-              <p className="text-green-600 font-bold">₹{item.price.toLocaleString()}</p>
-            </div>
-            <div className="flex items-center gap-2">
+        {cart.map(item => {
+          const prod = products.find(
+            p => (p.id === item.productId || p._id === item.productId || p._id === item.id)
+          );
+          return (
+            <div key={item.productId || item.id} className="flex items-center gap-4 p-4 border-b border-gray-200">
+              <div className="text-4xl">{prod ? prod.image : "❓"}</div>
+              <div className="flex-1">
+                <h3 className="font-semibold">{prod ? prod.name : "Unknown Product"}</h3>
+                <p className="text-green-600 font-bold">
+                  ₹{prod ? prod.price.toLocaleString() : "0"}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => onUpdateQuantity(item.productId || item.id, item.quantity - 1)}
+                  className="bg-gray-200 hover:bg-gray-300 p-1 rounded-full"
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="w-8 text-center font-semibold">{item.quantity}</span>
+                <button
+                  onClick={() => onUpdateQuantity(item.productId || item.id, item.quantity + 1)}
+                  className="bg-gray-200 hover:bg-gray-300 p-1 rounded-full"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
               <button
-                onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-                className="bg-gray-200 hover:bg-gray-300 p-1 rounded-full"
+                onClick={() => onRemoveFromCart(item.productId || item.id)}
+                className="text-red-500 hover:text-red-600 p-1"
               >
-                <Minus size={16} />
-              </button>
-              <span className="w-8 text-center font-semibold">{item.quantity}</span>
-              <button
-                onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                className="bg-gray-200 hover:bg-gray-300 p-1 rounded-full"
-              >
-                <Plus size={16} />
+                <Trash2 size={20} />
               </button>
             </div>
-            <button
-              onClick={() => onRemoveFromCart(item.id)}
-              className="text-red-500 hover:text-red-600 p-1"
-            >
-              <Trash2 size={20} />
-            </button>
-          </div>
-        ))}
+          );
+        })}
         <div className="mt-6 pt-4 border-t border-gray-200">
           <div className="text-xl font-bold text-center mb-4">
             Total: ₹{getCartTotal().toLocaleString()}

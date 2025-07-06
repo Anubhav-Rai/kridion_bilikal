@@ -10,6 +10,18 @@ import WishlistView from './components/WishlistView';
 import ProfileView from './components/ProfileView';
 import CompanyInfo from './components/CompanyInfo';
 
+const normalizeOrders = (data) => {
+  return Array.isArray(data) ? data.map(order => ({
+    ...order,
+    userId: order.userid || order.userId,
+    items: Array.isArray(order.items) ? order.items.map(item => ({
+      ...item,
+      productId: item.productid || item.productId,
+    })) : [],
+  })) : [];
+};
+
+
 const TeakSpiceStore = () => {
   // App state
   const [user, setUser] = useState(null);
@@ -52,7 +64,7 @@ const TeakSpiceStore = () => {
       fetch('/api/wishlist', { headers: authHeader() })
         .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
       fetch('/api/orders', { headers: authHeader() })
-        .then(res => res.json()).then(data => setOrders(Array.isArray(data) ? data : []));
+        .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
     } else {
       setCart([]); setWishlist([]); setOrders([]);
     }
@@ -201,7 +213,7 @@ const TeakSpiceStore = () => {
     }
     // Refresh orders and cart
     fetch('/api/orders', { headers: authHeader() })
-      .then(res => res.json()).then(data => setOrders(Array.isArray(data) ? data : []));
+      .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
     setCart([]);
     setAddress('');
     alert('Order placed successfully!');
@@ -212,6 +224,7 @@ const TeakSpiceStore = () => {
   const handleNav = (view) => setCurrentView(view);
 
   // --- Rendering ---
+  console.log("TeakSpiceStore: orders state", orders);
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 p-4">
       <div className="max-w-6xl mx-auto">
@@ -272,9 +285,10 @@ const TeakSpiceStore = () => {
               onUpdateQuantity={updateCartQuantity}
               onRemoveFromCart={removeFromCart}
               getCartTotal={getCartTotal}
+              products={products}
             />
           )}
-          {currentView === 'orders' && user && <OrdersView orders={orders} />}
+          {currentView === 'orders' && user && <OrdersView orders={orders} products={products} />}
           {currentView === 'wishlist' && user && (
             <WishlistView
               products={products}
