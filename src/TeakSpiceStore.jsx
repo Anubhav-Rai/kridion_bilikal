@@ -39,7 +39,7 @@ const TeakSpiceStore = () => {
 
   // Fetch products on mount
   useEffect(() => {
-    fetch('/api/products')
+    fetch('${process.env.REACT_APP_API_BASE_URL}/api/products')
       .then(res => res.json())
       .then(data => setProducts(Array.isArray(data) ? data : []))
       .catch(() => setProducts([]));
@@ -49,7 +49,7 @@ const TeakSpiceStore = () => {
   useEffect(() => {
     const token = getToken();
     if (token) {
-      fetch('/api/user/profile', { headers: authHeader() })
+      fetch('${process.env.REACT_APP_API_BASE_URL}/api/user/profile', { headers: authHeader() })
         .then(res => res.ok ? res.json() : null)
         .then(u => { if (u) setUser(u); })
         .catch(() => {});
@@ -59,11 +59,11 @@ const TeakSpiceStore = () => {
   // Fetch user-specific data after login
   useEffect(() => {
     if (user) {
-      fetch('/api/cart', { headers: authHeader() })
+      fetch('${process.env.REACT_APP_API_BASE_URL}/api/cart', { headers: authHeader() })
         .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
-      fetch('/api/wishlist', { headers: authHeader() })
+      fetch('${process.env.REACT_APP_API_BASE_URL}/api/wishlist', { headers: authHeader() })
         .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
-      fetch('/api/orders', { headers: authHeader() })
+      fetch('${process.env.REACT_APP_API_BASE_URL}/api/orders', { headers: authHeader() })
         .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
     } else {
       setCart([]); setWishlist([]); setOrders([]);
@@ -75,7 +75,7 @@ const TeakSpiceStore = () => {
     if (!email || !password) return alert('Please fill all fields');
     setLoading(true);
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -99,7 +99,7 @@ const TeakSpiceStore = () => {
     if (!name || !email || !phone || !password) return alert('Please fill all fields');
     setLoading(true);
     try {
-      const res = await fetch('/api/register', {
+      const res = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, phone, password })
@@ -132,13 +132,13 @@ const TeakSpiceStore = () => {
       setCurrentView('login');
       return;
     }
-    await fetch('/api/cart', {
+    await fetch('${process.env.REACT_APP_API_BASE_URL}/api/cart', {
       method: 'POST',
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ productId, quantity })
     });
     // Refresh cart
-    fetch('/api/cart', { headers: authHeader() })
+    fetch('${process.env.REACT_APP_API_BASE_URL}/api/cart', { headers: authHeader() })
       .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
   };
 
@@ -147,7 +147,7 @@ const TeakSpiceStore = () => {
       method: 'DELETE',
       headers: authHeader()
     });
-    fetch('/api/cart', { headers: authHeader() })
+    fetch('${process.env.REACT_APP_API_BASE_URL}/api/cart', { headers: authHeader() })
       .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
   };
 
@@ -161,7 +161,7 @@ const TeakSpiceStore = () => {
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ quantity: newQuantity })
     });
-    fetch('/api/cart', { headers: authHeader() })
+    fetch('${process.env.REACT_APP_API_BASE_URL}/api/cart', { headers: authHeader() })
       .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
   };
 
@@ -185,13 +185,13 @@ const TeakSpiceStore = () => {
     if (wishlist.includes(productId)) {
       await fetch(`/api/wishlist/${productId}`, { method: 'DELETE', headers: authHeader() });
     } else {
-      await fetch('/api/wishlist', {
+      await fetch('${process.env.REACT_APP_API_BASE_URL}/api/wishlist', {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId })
       });
     }
-    fetch('/api/wishlist', { headers: authHeader() })
+    fetch('${process.env.REACT_APP_API_BASE_URL}/api/wishlist', { headers: authHeader() })
       .then(res => res.json()).then(data => setWishlist(Array.isArray(data.productIds) ? data.productIds : []));
   };
 
@@ -202,7 +202,7 @@ const TeakSpiceStore = () => {
       productId: item.productId || item.id,
       quantity: item.quantity
     }));
-    const res = await fetch('/api/orders', {
+    const res = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/orders', {
       method: 'POST',
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ address, items: orderItems })
@@ -212,7 +212,7 @@ const TeakSpiceStore = () => {
       return;
     }
     // Refresh orders and cart
-    fetch('/api/orders', { headers: authHeader() })
+    fetch('${process.env.REACT_APP_API_BASE_URL}/api/orders', { headers: authHeader() })
       .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
     setCart([]);
     setAddress('');
