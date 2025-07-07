@@ -143,7 +143,7 @@ const TeakSpiceStore = () => {
   };
 
   const removeFromCart = async (productId) => {
-    await fetch(`/api/cart/${productId}`, {
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart/${productId}`, {
       method: 'DELETE',
       headers: authHeader()
     });
@@ -156,7 +156,7 @@ const TeakSpiceStore = () => {
       await removeFromCart(productId);
       return;
     }
-    await fetch(`/api/cart/${productId}`, {
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart/${productId}`, {
       method: 'PUT',
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ quantity: newQuantity })
@@ -183,7 +183,7 @@ const TeakSpiceStore = () => {
       return;
     }
     if (wishlist.includes(productId)) {
-      await fetch(`/api/wishlist/${productId}`, { method: 'DELETE', headers: authHeader() });
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/wishlist/${productId}`, { method: 'DELETE', headers: authHeader() });
     } else {
       await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/wishlist`, {
         method: 'POST',
