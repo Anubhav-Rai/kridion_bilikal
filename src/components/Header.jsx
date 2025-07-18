@@ -2,7 +2,6 @@ import React from 'react';
 import { User, ShoppingCart, LogOut } from 'lucide-react';
 import { Home } from 'lucide-react';
 // src/components/Header.jsx
-import React from 'react'
 import logo from '../assets/kridion-logo.png'  // adjust path to wherever you put the PNG
 
 
