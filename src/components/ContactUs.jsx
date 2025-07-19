@@ -24,6 +24,22 @@ const ContactUs = ({ darkMode }) => {
     setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
   };
 
+  const handleCallNow = () => {
+    // This will open the phone app on mobile devices and prompt to call on desktop
+    window.location.href = 'tel:+919876543210';
+  };
+
+  const handleWhatsApp = () => {
+    const phoneNumber = '919876543210'; // Without + sign for WhatsApp
+    const message = encodeURIComponent('Hello! I am interested in your products from KRIDION Agro.');
+    
+    // WhatsApp Web for desktop browsers, WhatsApp app for mobile
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+    // Open in new tab/window
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="space-y-8">
       {/* Hero Section */}
@@ -325,10 +341,16 @@ const ContactUs = ({ darkMode }) => {
             </p>
             
             <div className="space-y-2">
-              <button className="w-full bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium">
+              <button 
+                onClick={handleCallNow}
+                className="w-full bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium flex items-center justify-center gap-2"
+              >
                 📞 Call Now
               </button>
-              <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+              <button 
+                onClick={handleWhatsApp}
+                className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium flex items-center justify-center gap-2"
+              >
                 💬 WhatsApp Us
               </button>
             </div>
