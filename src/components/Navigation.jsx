@@ -1,5 +1,5 @@
 import React from 'react';
-import { Package, Heart, Settings, ShoppingBag, Info, Phone } from 'lucide-react';
+import { Package, Heart, Settings, ShoppingBag, Info, Phone, User } from 'lucide-react';
 
 const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user && (
   <nav className={isMobile ? "p-2" : "p-6"}>
@@ -8,7 +8,7 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
       <div className="flex justify-around items-center">
         <button 
           onClick={() => onNav('home')} 
-          className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-200 ${
+          className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
             currentView === 'home' 
               ? darkMode 
                 ? 'text-emerald-400' 
@@ -24,7 +24,7 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
         
         <button 
           onClick={() => onNav('orders')} 
-          className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-200 ${
+          className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
             currentView === 'orders' 
               ? darkMode 
                 ? 'text-emerald-400' 
@@ -40,7 +40,7 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
         
         <button 
           onClick={() => onNav('wishlist')} 
-          className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-200 ${
+          className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
             currentView === 'wishlist' 
               ? darkMode 
                 ? 'text-emerald-400' 
@@ -56,7 +56,7 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
 
         <button 
           onClick={() => onNav('about')} 
-          className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-200 ${
+          className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
             currentView === 'about' 
               ? darkMode 
                 ? 'text-emerald-400' 
@@ -72,7 +72,7 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
         
         <button 
           onClick={() => onNav('contact')} 
-          className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all duration-200 ${
+          className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
             currentView === 'contact' 
               ? darkMode 
                 ? 'text-emerald-400' 
@@ -84,6 +84,22 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
         >
           <Phone size={16} />
           <span className="text-xs font-medium">Contact</span>
+        </button>
+        
+        <button 
+          onClick={() => onNav('profile')} 
+          className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
+            currentView === 'profile' 
+              ? darkMode 
+                ? 'text-emerald-400' 
+                : 'text-emerald-600'
+              : darkMode 
+                ? 'text-slate-400 hover:text-white' 
+                : 'text-slate-500 hover:text-slate-900'
+          }`}
+        >
+          <User size={16} />
+          <span className="text-xs font-medium">Profile</span>
         </button>
       </div>
     ) : (
