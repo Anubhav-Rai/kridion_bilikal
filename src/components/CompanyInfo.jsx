@@ -1,54 +1,62 @@
 import React from 'react';
 
 const CompanyInfo = () => (
-  <div className="bg-white/90 rounded-2xl p-6 mb-8 shadow flex flex-col gap-8">
-    {/* Company Info */}
-    <div className="flex gap-4 items-start">
-      <div className="text-4xl">📋</div>
-      <div>
-        <div className="text-xl font-bold mb-2">Company Information</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-gray-700">
-          <div>
-            <span className="font-semibold">GSTIN Number: </span>2322143452342
+  <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl text-white overflow-hidden">
+    <div className="px-8 py-6">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+          <span className="text-2xl">🌿</span>
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold">Welcome to KRIDION Agro</h1>
+          <p className="text-emerald-100">Premium Kitchen Essentials & Authentic Spices</p>
+        </div>
+      </div>
+      
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">⭐</span>
+            <span className="font-semibold">Quality Assured</span>
           </div>
-          <div>
-            <span className="font-semibold">Business Type: </span>Premium Kitchen Essentials & Spices
+          <p className="text-sm text-emerald-100">Handcrafted products with authentic traditional methods</p>
+        </div>
+        
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">🚚</span>
+            <span className="font-semibold">Pan India Delivery</span>
           </div>
-          <div>
-            <span className="font-semibold">Established: </span>Serving quality since 2023
+          <p className="text-sm text-emerald-100">Fast and secure shipping across all Indian states</p>
+        </div>
+        
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">📞</span>
+            <span className="font-semibold">24/7 Support</span>
           </div>
-          <div>
-            <span className="font-semibold">Specialty: </span>Handcrafted Wood Products & Authentic Spices
-          </div>
+          <p className="text-sm text-emerald-100">Dedicated customer service for all your needs</p>
         </div>
       </div>
     </div>
-
-    {/* Contact Info */}
-    <div className="flex gap-4 items-start mt-2">
-      <div className="text-4xl">📞</div>
-      <div>
-        <div className="text-xl font-bold mb-2">Get in Touch</div>
-        <div className="space-y-1 text-gray-700">
-          <div>
-            <span className="font-semibold">For orders, inquiries, or custom requirements, please contact us:</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xl">📧</span>
-            <span><span className="font-semibold">Email</span>: info@kridion.com</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xl">📱</span>
-            <span><span className="font-semibold">Phone</span>: +91 98765 43210</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xl">⏰</span>
-            <span><span className="font-semibold">Business Hours</span>: Mon-Sat: 9:00 AM - 6:00 PM</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🚚</span>
-            <span><span className="font-semibold">Delivery</span>: Pan India Shipping Available</span>
-          </div>
+    
+    <div className="bg-white/10 border-t border-white/20 px-8 py-4">
+      <div className="grid md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <span className="text-emerald-200 font-medium">GSTIN:</span>
+          <span className="ml-2 font-mono">2322143452342</span>
+        </div>
+        <div>
+          <span className="text-emerald-200 font-medium">Est:</span>
+          <span className="ml-2">2023</span>
+        </div>
+        <div>
+          <span className="text-emerald-200 font-medium">Email:</span>
+          <span className="ml-2">info@kridion.com</span>
+        </div>
+        <div>
+          <span className="text-emerald-200 font-medium">Phone:</span>
+          <span className="ml-2">+91 98765 43210</span>
         </div>
       </div>
     </div>

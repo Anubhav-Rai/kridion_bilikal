@@ -226,38 +226,65 @@ const TeakSpiceStore = () => {
   // --- Rendering ---
   console.log("TeakSpiceStore: orders state", orders);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 p-4">
-      <div className="max-w-6xl mx-auto">
-        <Header
-          user={user}
-          cartCount={getCartCount()}
-          onLogout={handleLogout}
-          onNav={handleNav}
-          onLogin={() => setCurrentView('login')}
-          onRegister={() => setCurrentView('register')}
-        />
-        <Navigation user={user} currentView={currentView} onNav={handleNav} />
-        <main>
+    <div className="min-h-screen bg-slate-50">
+      <Header
+        user={user}
+        cartCount={getCartCount()}
+        onLogout={handleLogout}
+        onNav={handleNav}
+        onLogin={() => setCurrentView('login')}
+        onRegister={() => setCurrentView('register')}
+      />
+      
+      <div className="flex">
+        {/* Sidebar Navigation */}
+        {user && (
+          <aside className="w-64 bg-white shadow-sm border-r border-slate-200 min-h-screen sticky top-0">
+            <Navigation user={user} currentView={currentView} onNav={handleNav} />
+          </aside>
+        )}
+        
+        {/* Main Content */}
+        <main className={`flex-1 ${user ? 'ml-0' : 'mx-auto max-w-7xl'} px-4 sm:px-6 lg:px-8 py-8`}>
           {currentView === 'home' && (
-            <>
+            <div className="space-y-8">
               <CompanyInfo />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {Array.isArray(products) && products.length > 0 ? (
-                  products.map(product => (
-                    <ProductCard
-                      key={product.id || product._id}
-                      product={product}
-                      user={user}
-                      wishlist={wishlist}
-                      onAddToCart={addToCart}
-                      onToggleWishlist={toggleWishlist}
-                    />
-                  ))
-                ) : (
-                  <div className="text-center text-gray-700 py-8">No products available.</div>
-                )}
+              
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-2xl font-bold text-slate-900">Our Products</h2>
+                    <p className="text-slate-600 mt-1">Premium quality spices and kitchen essentials</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-slate-500">
+                      {Array.isArray(products) ? products.length : 0} products available
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {Array.isArray(products) && products.length > 0 ? (
+                    products.map(product => (
+                      <ProductCard
+                        key={product.id || product._id}
+                        product={product}
+                        user={user}
+                        wishlist={wishlist}
+                        onAddToCart={addToCart}
+                        onToggleWishlist={toggleWishlist}
+                      />
+                    ))
+                  ) : (
+                    <div className="col-span-full flex flex-col items-center justify-center py-16">
+                      <div className="text-6xl mb-4">📦</div>
+                      <h3 className="text-lg font-semibold text-slate-900 mb-2">No products available</h3>
+                      <p className="text-slate-600">Check back later for new arrivals.</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </>
+            </div>
           )}
 
           {currentView === 'login' && (
