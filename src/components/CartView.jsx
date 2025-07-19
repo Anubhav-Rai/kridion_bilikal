@@ -38,6 +38,9 @@ const CartView = ({
           );
           
           
+          const stock = prod ? prod.stock || 0 : 0;
+          const canIncreaseQuantity = stock > item.quantity;
+          
           return (
             <div key={`${productId}-${index}`} className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 border-b border-gray-200">
               <div className="text-3xl sm:text-4xl flex-shrink-0">{prod ? prod.image : "❓"}</div>
@@ -46,9 +49,18 @@ const CartView = ({
                 <p className="text-green-600 font-bold text-sm sm:text-base">
                   ₹{prod ? prod.price.toLocaleString() : "0"}
                 </p>
-                <p className="text-xs text-gray-500 hidden sm:block">
-                  Item ID: {productId} | Quantity: {item.quantity}
-                </p>
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <span className="hidden sm:inline">Item ID: {productId}</span>
+                  {stock > 0 && (
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${
+                      stock <= 5 
+                        ? 'bg-orange-100 text-orange-600' 
+                        : 'bg-green-100 text-green-600'
+                    }`}>
+                      {stock} in stock
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                 <button
@@ -59,8 +71,14 @@ const CartView = ({
                 </button>
                 <span className="w-6 sm:w-8 text-center font-semibold text-sm sm:text-base">{item.quantity}</span>
                 <button
-                  onClick={() => onUpdateQuantity(productId, item.quantity + 1)}
-                  className="bg-gray-200 hover:bg-gray-300 p-1.5 sm:p-2 rounded-full flex-shrink-0"
+                  onClick={() => canIncreaseQuantity ? onUpdateQuantity(productId, item.quantity + 1) : null}
+                  disabled={!canIncreaseQuantity}
+                  className={`p-1.5 sm:p-2 rounded-full flex-shrink-0 ${
+                    canIncreaseQuantity 
+                      ? 'bg-gray-200 hover:bg-gray-300' 
+                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  }`}
+                  title={!canIncreaseQuantity ? 'Cannot exceed available stock' : 'Increase quantity'}
                 >
                   <Plus size={14} />
                 </button>

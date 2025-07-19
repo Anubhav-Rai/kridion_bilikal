@@ -144,14 +144,41 @@ const TeakSpiceStore = () => {
       setCurrentView('login');
       return;
     }
-    await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart`, {
-      method: 'POST',
-      headers: { ...authHeader(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ productId, quantity })
-    });
-    // Refresh cart
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart`, { headers: authHeader() })
-      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+    
+    // Check stock availability before adding to cart
+    const product = products.find(p => String(p.id) === String(productId) || String(p._id) === String(productId));
+    const availableStock = product ? product.stock || 0 : 0;
+    
+    // Get current quantity in cart for this product
+    const currentCartItem = cart.find(item => 
+      String(item.productId) === String(productId) || String(item.id) === String(productId)
+    );
+    const currentQuantityInCart = currentCartItem ? currentCartItem.quantity : 0;
+    
+    if (availableStock <= 0) {
+      alert('This product is out of stock');
+      return;
+    }
+    
+    if (currentQuantityInCart + quantity > availableStock) {
+      alert(`Only ${availableStock} items available. You already have ${currentQuantityInCart} in your cart.`);
+      return;
+    }
+    
+    try {
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart`, {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId, quantity })
+      });
+      
+      // Refresh cart
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart`, { headers: authHeader() })
+        .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Failed to add item to cart');
+    }
   };
 
   const removeFromCart = async (productId) => {
@@ -168,13 +195,29 @@ const TeakSpiceStore = () => {
       await removeFromCart(productId);
       return;
     }
-    await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart/${productId}`, {
-      method: 'PUT',
-      headers: { ...authHeader(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quantity: newQuantity })
-    });
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart`, { headers: authHeader() })
-      .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+    
+    // Check stock availability before updating quantity
+    const product = products.find(p => String(p.id) === String(productId) || String(p._id) === String(productId));
+    const availableStock = product ? product.stock || 0 : 0;
+    
+    if (newQuantity > availableStock) {
+      alert(`Only ${availableStock} items available in stock`);
+      return;
+    }
+    
+    try {
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart/${productId}`, {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity: newQuantity })
+      });
+      
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/cart`, { headers: authHeader() })
+        .then(res => res.json()).then(data => setCart(Array.isArray(data.items) ? data.items : []));
+    } catch (error) {
+      console.error('Error updating cart quantity:', error);
+      alert('Failed to update cart quantity');
+    }
   };
 
   const getCartTotal = () => {
