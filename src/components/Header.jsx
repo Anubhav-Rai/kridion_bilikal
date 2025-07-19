@@ -45,12 +45,26 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                         >
                             Products
                         </button>
-                        <span className={`font-medium ${
-                            darkMode ? 'text-slate-300' : 'text-slate-700'
-                        }`}>About</span>
-                        <span className={`font-medium ${
-                            darkMode ? 'text-slate-300' : 'text-slate-700'
-                        }`}>Contact</span>
+                        <button
+                            onClick={() => onNav('about')}
+                            className={`font-medium transition-colors ${
+                                darkMode 
+                                    ? 'text-slate-300 hover:text-white' 
+                                    : 'text-slate-700 hover:text-slate-900'
+                            }`}
+                        >
+                            About
+                        </button>
+                        <button
+                            onClick={() => onNav('contact')}
+                            className={`font-medium transition-colors ${
+                                darkMode 
+                                    ? 'text-slate-300 hover:text-white' 
+                                    : 'text-slate-700 hover:text-slate-900'
+                            }`}
+                        >
+                            Contact
+                        </button>
                     </nav>
                 )}
                 

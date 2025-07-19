@@ -9,6 +9,8 @@ import OrdersView from './components/OrdersView';
 import WishlistView from './components/WishlistView';
 import ProfileView from './components/ProfileView';
 import CompanyInfo from './components/CompanyInfo';
+import AboutUs from './components/AboutUs';
+import ContactUs from './components/ContactUs';
 
 const normalizeOrders = (data) => {
   return Array.isArray(data) ? data.map(order => ({
@@ -360,6 +362,8 @@ const TeakSpiceStore = () => {
             />
           )}
           {currentView === 'profile' && user && <ProfileView user={user} />}
+          {currentView === 'about' && <AboutUs darkMode={darkMode} />}
+          {currentView === 'contact' && <ContactUs darkMode={darkMode} />}
         </main>
       </div>
     </div>
