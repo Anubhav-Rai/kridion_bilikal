@@ -40,7 +40,7 @@ const AboutUs = ({ darkMode }) => (
               <div className="relative">
                 <img
                   src={anubhavImage}
-                  alt="Anubhav Rai - Founder of KRIDION Agro"
+                  alt="AKSHAT YADAV MEENA Rai - Founder of KRIDION Agro"
                   className="w-full h-64 md:h-48 object-cover rounded-xl shadow-lg"
                 />
                 <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent rounded-b-xl p-4`}>
@@ -54,7 +54,7 @@ const AboutUs = ({ darkMode }) => (
               <p className={`leading-relaxed transition-colors duration-300 ${
                 darkMode ? 'text-slate-300' : 'text-slate-600'
               }`}>
-                Founded in 2023 by Anubhav, KRIDION Agro emerged from a passion for preserving traditional Indian kitchen 
+                Founded in 2023 by YADAV, KRIDION Agro emerged from a passion for preserving traditional Indian kitchen 
                 practices while meeting modern quality standards. What started as a small venture by the Rai 
                 family in <Bangaluru></Bangaluru> has grown into a trusted name for authentic kitchen essentials.
               </p>
