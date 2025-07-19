@@ -56,7 +56,7 @@ const AboutUs = ({ darkMode }) => (
               }`}>
                 Founded in 2023 by YADAV, KRIDION Agro emerged from a passion for preserving traditional Indian kitchen 
                 practices while meeting modern quality standards. What started as a small venture by the Rai 
-                family in <Bangaluru></Bangaluru> has grown into a trusted name for authentic kitchen essentials.
+                family in Bangaluru has grown into a trusted name for authentic kitchen essentials.
               </p>
               
               <p className={`leading-relaxed transition-colors duration-300 ${
