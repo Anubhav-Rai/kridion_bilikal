@@ -33,7 +33,7 @@ const TeakSpiceStore = () => {
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState({});
   const [loading, setLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     // Check localStorage first, then system preference
@@ -212,25 +212,32 @@ const TeakSpiceStore = () => {
 
   // --- Order Handler ---
   const placeOrder = async () => {
-    if (!address) return alert('Please enter delivery address');
+    // Validate required address fields
+    if (!address.fullName || !address.phone || !address.street || !address.city || !address.postalCode || !address.country) {
+      return alert('Please fill in all required address fields');
+    }
+    
     const orderItems = cart.map(item => ({
       productId: item.productId || item.id,
       quantity: item.quantity
     }));
+    
     const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, {
       method: 'POST',
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ address, items: orderItems })
     });
+    
     if (!res.ok) {
       alert('Order failed');
       return;
     }
+    
     // Refresh orders and cart
     fetch(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, { headers: authHeader() })
       .then(res => res.json()).then(data => setOrders(normalizeOrders(data)));
     setCart([]);
-    setAddress('');
+    setAddress({});
     alert('Order placed successfully!');
     setCurrentView('orders');
   };
