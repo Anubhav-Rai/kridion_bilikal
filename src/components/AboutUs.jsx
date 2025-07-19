@@ -9,10 +9,10 @@ const AboutUs = ({ darkMode }) => (
         ? 'bg-gradient-to-r from-emerald-800 to-teal-800' 
         : 'bg-gradient-to-r from-emerald-600 to-teal-600'
     } text-white`}>
-      <div className="px-8 py-12">
+      <div className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4">Our Story</h1>
-          <p className="text-xl text-emerald-100">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Our Story</h1>
+          <p className="text-base sm:text-lg lg:text-xl text-emerald-100 leading-relaxed">
             From a small family kitchen to serving homes across India with premium wooden kitchenware, 
             authentic spices, and traditional mustard oil
           </p>
@@ -21,9 +21,9 @@ const AboutUs = ({ darkMode }) => (
     </div>
 
     {/* Main Content */}
-    <div className="grid lg:grid-cols-3 gap-8">
+    <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
       {/* About Content */}
-      <div className="lg:col-span-2 space-y-6">
+      <div className="lg:col-span-2 space-y-4 sm:space-y-6">
         <div className={`rounded-xl p-6 border transition-colors duration-300 ${
           darkMode 
             ? 'bg-slate-800 border-slate-700' 

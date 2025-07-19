@@ -6,22 +6,22 @@ const CompanyInfo = ({ darkMode }) => (
       ? 'bg-gradient-to-r from-emerald-700 to-teal-700' 
       : 'bg-gradient-to-r from-emerald-600 to-teal-600'
   }`}>
-    <div className="px-8 py-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+    <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4 sm:mb-6">
+        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
           darkMode ? 'bg-white/30' : 'bg-white/20'
         }`}>
-          <span className="text-2xl">🌿</span>
+          <span className="text-xl sm:text-2xl">🌿</span>
         </div>
-        <div>
-          <h1 className="text-2xl font-bold">Welcome to KRIDION Agro</h1>
-          <p className={`transition-colors duration-300 ${
+        <div className="text-center sm:text-left">
+          <h1 className="text-xl sm:text-2xl font-bold">Welcome to KRIDION Agro</h1>
+          <p className={`text-sm sm:text-base transition-colors duration-300 ${
             darkMode ? 'text-emerald-200' : 'text-emerald-100'
           }`}>Premium Kitchen Essentials & Authentic Spices</p>
         </div>
       </div>
       
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className={`backdrop-blur-sm rounded-lg p-4 transition-colors duration-300 ${
           darkMode ? 'bg-white/15' : 'bg-white/10'
         }`}>
@@ -60,12 +60,12 @@ const CompanyInfo = ({ darkMode }) => (
       </div>
     </div>
     
-    <div className={`border-t px-8 py-4 transition-colors duration-300 ${
+    <div className={`border-t px-4 sm:px-6 lg:px-8 py-3 sm:py-4 transition-colors duration-300 ${
       darkMode 
         ? 'bg-white/15 border-white/30' 
         : 'bg-white/10 border-white/20'
     }`}>
-      <div className="grid md:grid-cols-4 gap-4 text-sm">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm">
         <div>
           <span className={`font-medium transition-colors duration-300 ${
             darkMode ? 'text-emerald-300' : 'text-emerald-200'

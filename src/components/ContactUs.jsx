@@ -48,10 +48,10 @@ const ContactUs = ({ darkMode }) => {
           ? 'bg-gradient-to-r from-emerald-800 to-teal-800' 
           : 'bg-gradient-to-r from-emerald-600 to-teal-600'
       } text-white`}>
-        <div className="px-8 py-12">
+        <div className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-4">Get in Touch</h1>
-            <p className="text-xl text-emerald-100">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Get in Touch</h1>
+            <p className="text-base sm:text-lg lg:text-xl text-emerald-100 leading-relaxed">
               Have questions about our products? Need bulk orders? We're here to help you 
               find the perfect kitchen essentials for your needs.
             </p>
@@ -59,7 +59,7 @@ const ContactUs = ({ darkMode }) => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Contact Form */}
         <div className="lg:col-span-2">
           <div className={`rounded-xl p-6 border transition-colors duration-300 ${
@@ -200,7 +200,7 @@ const ContactUs = ({ darkMode }) => {
         </div>
 
         {/* Contact Information */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Contact Details */}
           <div className={`rounded-xl p-6 border transition-colors duration-300 ${
             darkMode 

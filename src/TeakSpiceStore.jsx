@@ -253,20 +253,34 @@ const TeakSpiceStore = () => {
         toggleDarkMode={toggleDarkMode}
       />
       
-      <div className="flex">
-        {/* Sidebar Navigation */}
+      <div className="flex flex-col lg:flex-row">
+        {/* Sidebar Navigation - Desktop */}
         {user && (
-          <aside className={`w-64 shadow-sm border-r min-h-screen sticky top-0 transition-colors duration-300 ${
-            darkMode 
-              ? 'bg-slate-800 border-slate-700' 
-              : 'bg-white border-slate-200'
-          }`}>
-            <Navigation user={user} currentView={currentView} onNav={handleNav} darkMode={darkMode} />
-          </aside>
+          <>
+            {/* Desktop Sidebar */}
+            <aside className={`hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-16 transition-colors duration-300 ${
+              darkMode 
+                ? 'bg-slate-800 border-slate-700' 
+                : 'bg-white border-slate-200'
+            }`}>
+              <Navigation user={user} currentView={currentView} onNav={handleNav} darkMode={darkMode} />
+            </aside>
+            
+            {/* Mobile Bottom Navigation */}
+            <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t transition-colors duration-300 ${
+              darkMode 
+                ? 'bg-slate-800 border-slate-700' 
+                : 'bg-white border-slate-200'
+            }`}>
+              <Navigation user={user} currentView={currentView} onNav={handleNav} darkMode={darkMode} isMobile={true} />
+            </div>
+          </>
         )}
         
         {/* Main Content */}
-        <main className={`flex-1 ${user ? 'ml-0' : 'mx-auto max-w-7xl'} px-4 sm:px-6 lg:px-8 py-8`}>
+        <main className={`flex-1 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 ${
+          user ? 'pb-20 lg:pb-8' : 'mx-auto max-w-7xl'
+        }`}>
           {currentView === 'home' && (
             <div className="space-y-8">
               <CompanyInfo darkMode={darkMode} />
@@ -294,7 +308,7 @@ const TeakSpiceStore = () => {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                   {Array.isArray(products) && products.length > 0 ? (
                     products.map(product => (
                       <ProductCard

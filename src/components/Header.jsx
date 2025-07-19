@@ -11,17 +11,17 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
             ? 'bg-slate-800 border-slate-700' 
             : 'bg-white border-slate-200'
     }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+            <div className="flex justify-between items-center h-14 sm:h-16">
                 {/* Logo Section */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                     <img
                         src={logo}
                         alt="KRIDION(agro) Logo"
-                        className="h-8 w-auto"
+                        className="h-6 sm:h-8 w-auto"
                     />
                     <div className="flex flex-col">
-                        <span className={`text-xl font-bold transition-colors duration-300 ${
+                        <span className={`text-lg sm:text-xl font-bold transition-colors duration-300 ${
                             darkMode ? 'text-white' : 'text-slate-900'
                         }`}>
                             KRIDION
@@ -69,7 +69,7 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                 )}
                 
                 {/* Right Section */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
@@ -80,37 +80,37 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                         }`}
                         title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                     >
-                        {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+                        {darkMode ? <Sun size={16} /> : <Moon size={16} />}
                     </button>
 
                     <button
                         onClick={() => onNav('cart')}
-                        className={`relative flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                        className={`relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors ${
                             darkMode 
                                 ? 'bg-white text-slate-900 hover:bg-slate-100' 
                                 : 'bg-slate-900 text-white hover:bg-slate-800'
                         }`}
                     >
-                        <ShoppingCart size={18} />
-                        <span className="hidden sm:inline">Cart</span>
+                        <ShoppingCart size={16} />
+                        <span className="hidden sm:inline text-sm">Cart</span>
                         {cartCount > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                            <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center">
                                 {cartCount}
                             </span>
                         )}
                     </button>
                     
                     {user ? (
-                        <div className="flex items-center gap-3">
-                            <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition-colors duration-300 ${
+                        <div className="flex items-center gap-2">
+                            <div className={`hidden sm:flex items-center gap-2 px-2 sm:px-3 py-1 sm:py-2 rounded-lg border transition-colors duration-300 ${
                                 darkMode 
                                     ? 'bg-slate-700 border-slate-600' 
                                     : 'bg-slate-50 border-slate-200'
                             }`}>
-                                <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
-                                    <User size={14} className="text-emerald-600" />
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                                    <User size={12} className="text-emerald-600" />
                                 </div>
-                                <span className={`font-medium text-sm transition-colors duration-300 ${
+                                <span className={`font-medium text-xs sm:text-sm transition-colors duration-300 ${
                                     darkMode ? 'text-slate-200' : 'text-slate-700'
                                 }`}>
                                     {user.name}
@@ -118,21 +118,21 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                             </div>
                             <button
                                 onClick={onLogout}
-                                className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                                className={`flex items-center gap-1 px-2 sm:px-3 py-2 rounded-lg transition-colors ${
                                     darkMode 
                                         ? 'text-slate-400 hover:text-white hover:bg-slate-700' 
                                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                                 }`}
                             >
-                                <LogOut size={16} />
-                                <span className="hidden sm:inline">Logout</span>
+                                <LogOut size={14} />
+                                <span className="hidden sm:inline text-sm">Logout</span>
                             </button>
                         </div>
                     ) : (
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
                             <button 
                                 onClick={onLogin} 
-                                className={`font-medium px-4 py-2 rounded-lg transition-colors ${
+                                className={`font-medium px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors text-sm ${
                                     darkMode 
                                         ? 'text-slate-300 hover:text-white hover:bg-slate-700' 
                                         : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
@@ -142,7 +142,7 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                             </button>
                             <button 
                                 onClick={onRegister} 
-                                className="bg-emerald-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+                                className="bg-emerald-600 text-white font-medium px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-emerald-700 transition-colors text-sm"
                             >
                                 Sign Up
                             </button>
