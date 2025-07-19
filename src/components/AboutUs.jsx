@@ -1,5 +1,6 @@
 import React from 'react';
 import { Award, Leaf, Users, MapPin, Clock, Heart } from 'lucide-react';
+import anubhavImage from '../assets/anubhav.jpeg';
 
 const AboutUs = ({ darkMode }) => (
   <div className="space-y-8">
@@ -29,19 +30,46 @@ const AboutUs = ({ darkMode }) => (
             ? 'bg-slate-800 border-slate-700' 
             : 'bg-white border-slate-200'
         }`}>
-          <h2 className={`text-2xl font-bold mb-4 transition-colors duration-300 ${
+          <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 ${
             darkMode ? 'text-white' : 'text-slate-900'
           }`}>About KRIDION Agro</h2>
           
-          <div className="space-y-4">
-            <p className={`leading-relaxed transition-colors duration-300 ${
-              darkMode ? 'text-slate-300' : 'text-slate-600'
-            }`}>
-              Founded in 2023, KRIDION Agro emerged from a passion for preserving traditional Indian kitchen 
-              practices while meeting modern quality standards. What started as a small venture by the Kumar 
-              family in Rajasthan has grown into a trusted name for authentic kitchen essentials.
-            </p>
+          {/* Founder Section */}
+          <div className="flex flex-col md:flex-row gap-6 mb-6">
+            <div className="md:w-1/3">
+              <div className="relative">
+                <img
+                  src={anubhavImage}
+                  alt="Anubhav Kumar - Founder of KRIDION Agro"
+                  className="w-full h-64 md:h-48 object-cover rounded-xl shadow-lg"
+                />
+                <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent rounded-b-xl p-4`}>
+                  <h3 className="text-white font-semibold text-lg">Anubhav Kumar</h3>
+                  <p className="text-white/90 text-sm">Founder & CEO</p>
+                </div>
+              </div>
+            </div>
             
+            <div className="md:w-2/3 space-y-4">
+              <p className={`leading-relaxed transition-colors duration-300 ${
+                darkMode ? 'text-slate-300' : 'text-slate-600'
+              }`}>
+                Founded in 2023 by Anubhav, KRIDION Agro emerged from a passion for preserving traditional Indian kitchen 
+                practices while meeting modern quality standards. What started as a small venture by the Kumar 
+                family in Rajasthan has grown into a trusted name for authentic kitchen essentials.
+              </p>
+              
+              <p className={`leading-relaxed transition-colors duration-300 ${
+                darkMode ? 'text-slate-300' : 'text-slate-600'
+              }`}>
+                "Our vision is to bring the authentic taste and quality of traditional Indian kitchen products 
+                to every home, while supporting local artisans and farmers," says Anubhav, who comes from a 
+                family with deep roots in traditional craftsmanship and agriculture.
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
             <p className={`leading-relaxed transition-colors duration-300 ${
               darkMode ? 'text-slate-300' : 'text-slate-600'
             }`}>
