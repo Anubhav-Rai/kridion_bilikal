@@ -12,10 +12,15 @@ const CartView = ({
   onRemoveFromCart,
   getCartTotal,
   products // <-- Accept products as prop!
-}) => (
-  <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-    <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
-    {cart.length === 0 ? (
+}) => {
+  // Debug cart data
+  console.log('Cart data:', cart);
+  console.log('Products data:', products);
+  
+  return (
+    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+      <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
+      {cart.length === 0 ? (
       <div className="text-center py-8">
         <ShoppingCart size={64} className="mx-auto text-gray-400 mb-4" />
         <p className="text-gray-500">Your cart is empty</p>
@@ -28,36 +33,45 @@ const CartView = ({
       </div>
     ) : (
       <div>
-        {cart.map(item => {
+        {cart.map((item, index) => {
+          // More robust product matching
+          const productId = item.productId || item.id;
           const prod = products.find(
-            p => (p.id === item.productId || p._id === item.productId || p._id === item.id)
+            p => p.id === productId || p._id === productId
           );
+          
+          // Debug individual item
+          console.log(`Cart item ${index}:`, item, 'Found product:', prod);
+          
           return (
-            <div key={item.productId || item.id} className="flex items-center gap-4 p-4 border-b border-gray-200">
+            <div key={`${productId}-${index}`} className="flex items-center gap-4 p-4 border-b border-gray-200">
               <div className="text-4xl">{prod ? prod.image : "❓"}</div>
               <div className="flex-1">
-                <h3 className="font-semibold">{prod ? prod.name : "Unknown Product"}</h3>
+                <h3 className="font-semibold">{prod ? prod.name : `Unknown Product (ID: ${productId})`}</h3>
                 <p className="text-green-600 font-bold">
                   ₹{prod ? prod.price.toLocaleString() : "0"}
+                </p>
+                <p className="text-xs text-gray-500">
+                  Item ID: {productId} | Quantity: {item.quantity}
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => onUpdateQuantity(item.productId || item.id, item.quantity - 1)}
+                  onClick={() => onUpdateQuantity(productId, item.quantity - 1)}
                   className="bg-gray-200 hover:bg-gray-300 p-1 rounded-full"
                 >
                   <Minus size={16} />
                 </button>
                 <span className="w-8 text-center font-semibold">{item.quantity}</span>
                 <button
-                  onClick={() => onUpdateQuantity(item.productId || item.id, item.quantity + 1)}
+                  onClick={() => onUpdateQuantity(productId, item.quantity + 1)}
                   className="bg-gray-200 hover:bg-gray-300 p-1 rounded-full"
                 >
                   <Plus size={16} />
                 </button>
               </div>
               <button
-                onClick={() => onRemoveFromCart(item.productId || item.id)}
+                onClick={() => onRemoveFromCart(productId)}
                 className="text-red-500 hover:text-red-600 p-1"
               >
                 <Trash2 size={20} />
@@ -103,6 +117,7 @@ const CartView = ({
       </div>
     )}
   </div>
-);
+  );
+};
 
 export default CartView;
