@@ -11,6 +11,7 @@ import ProfileView from './components/ProfileView';
 import CompanyInfo from './components/CompanyInfo';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
+import { Package, Info, Phone } from 'lucide-react';
 
 const normalizeOrders = (data) => {
   return Array.isArray(data) ? data.map(order => ({
@@ -283,9 +284,70 @@ const TeakSpiceStore = () => {
           </>
         )}
         
+        {/* Mobile Navigation for Non-logged-in users */}
+        {!user && (
+          <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t transition-colors duration-300 ${
+            darkMode 
+              ? 'bg-slate-800 border-slate-700' 
+              : 'bg-white border-slate-200'
+          }`}>
+            <nav className="p-2">
+              <div className="flex justify-around items-center">
+                <button 
+                  onClick={() => handleNav('home')} 
+                  className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
+                    currentView === 'home' 
+                      ? darkMode 
+                        ? 'text-emerald-400' 
+                        : 'text-emerald-600'
+                      : darkMode 
+                        ? 'text-slate-400 hover:text-white' 
+                        : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  <Package size={16} />
+                  <span className="text-xs font-medium">Products</span>
+                </button>
+                
+                <button 
+                  onClick={() => handleNav('about')} 
+                  className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
+                    currentView === 'about' 
+                      ? darkMode 
+                        ? 'text-emerald-400' 
+                        : 'text-emerald-600'
+                      : darkMode 
+                        ? 'text-slate-400 hover:text-white' 
+                        : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  <Info size={16} />
+                  <span className="text-xs font-medium">About</span>
+                </button>
+                
+                <button 
+                  onClick={() => handleNav('contact')} 
+                  className={`flex flex-col items-center gap-1 px-1 py-2 rounded-lg transition-all duration-200 ${
+                    currentView === 'contact' 
+                      ? darkMode 
+                        ? 'text-emerald-400' 
+                        : 'text-emerald-600'
+                      : darkMode 
+                        ? 'text-slate-400 hover:text-white' 
+                        : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  <Phone size={16} />
+                  <span className="text-xs font-medium">Contact</span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        )}
+        
         {/* Main Content */}
         <main className={`flex-1 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 ${
-          user ? 'pb-20 lg:pb-8' : 'mx-auto max-w-7xl'
+          user ? 'pb-20 lg:pb-8' : 'pb-20 lg:pb-8 mx-auto max-w-7xl'
         }`}>
           {currentView === 'home' && (
             <div className="space-y-8">

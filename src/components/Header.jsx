@@ -32,41 +32,39 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                     </div>
                 </div>
                 
-                {/* Center Navigation - Only show when no user */}
-                {!user && (
-                    <nav className="hidden md:flex items-center gap-8">
-                        <button
-                            onClick={() => onNav('home')}
-                            className={`font-medium transition-colors ${
-                                darkMode 
-                                    ? 'text-slate-300 hover:text-white' 
-                                    : 'text-slate-700 hover:text-slate-900'
-                            }`}
-                        >
-                            Products
-                        </button>
-                        <button
-                            onClick={() => onNav('about')}
-                            className={`font-medium transition-colors ${
-                                darkMode 
-                                    ? 'text-slate-300 hover:text-white' 
-                                    : 'text-slate-700 hover:text-slate-900'
-                            }`}
-                        >
-                            About
-                        </button>
-                        <button
-                            onClick={() => onNav('contact')}
-                            className={`font-medium transition-colors ${
-                                darkMode 
-                                    ? 'text-slate-300 hover:text-white' 
-                                    : 'text-slate-700 hover:text-slate-900'
-                            }`}
-                        >
-                            Contact
-                        </button>
-                    </nav>
-                )}
+                {/* Center Navigation - Always show */}
+                <nav className="hidden md:flex items-center gap-8">
+                    <button
+                        onClick={() => onNav('home')}
+                        className={`font-medium transition-colors ${
+                            darkMode 
+                                ? 'text-slate-300 hover:text-white' 
+                                : 'text-slate-700 hover:text-slate-900'
+                        }`}
+                    >
+                        Products
+                    </button>
+                    <button
+                        onClick={() => onNav('about')}
+                        className={`font-medium transition-colors ${
+                            darkMode 
+                                ? 'text-slate-300 hover:text-white' 
+                                : 'text-slate-700 hover:text-slate-900'
+                        }`}
+                    >
+                        About
+                    </button>
+                    <button
+                        onClick={() => onNav('contact')}
+                        className={`font-medium transition-colors ${
+                            darkMode 
+                                ? 'text-slate-300 hover:text-white' 
+                                : 'text-slate-700 hover:text-slate-900'
+                        }`}
+                    >
+                        Contact
+                    </button>
+                </nav>
                 
                 {/* Right Section */}
                 <div className="flex items-center gap-2 sm:gap-3">
