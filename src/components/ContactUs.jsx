@@ -10,6 +10,10 @@ const ContactUs = ({ darkMode }) => {
     message: ''
   });
 
+  // Check if form was successfully submitted
+  const urlParams = new URLSearchParams(window.location.search);
+  const isSuccess = urlParams.get('success') === 'true';
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -18,10 +22,8 @@ const ContactUs = ({ darkMode }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    // FormSubmit will handle the submission, so we don't prevent default
+    // The form will submit to FormSubmit and redirect back
   };
 
   const handleCallNow = () => {
@@ -59,6 +61,30 @@ const ContactUs = ({ darkMode }) => {
         </div>
       </div>
 
+      {/* Success Message */}
+      {isSuccess && (
+        <div className={`rounded-xl p-4 border-l-4 border-green-500 transition-colors duration-300 ${
+          darkMode 
+            ? 'bg-green-900/20 border-green-400' 
+            : 'bg-green-50 border-green-500'
+        }`}>
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className={`text-sm font-medium transition-colors duration-300 ${
+                darkMode ? 'text-green-300' : 'text-green-800'
+              }`}>
+                ✅ Thank you for your message! We have received your inquiry and will get back to you within 24 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Contact Form */}
         <div className="lg:col-span-2">
@@ -74,7 +100,18 @@ const ContactUs = ({ darkMode }) => {
               }`}>Send us a Message</h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form 
+              action="https://formsubmit.co/broadbandarchitecture@gmail.com" 
+              method="POST"
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+            >
+              {/* FormSubmit Configuration */}
+              <input type="hidden" name="_subject" value="New Contact Form Submission from KRIDION Agro Website" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_next" value={window.location.origin + window.location.pathname + "?success=true"} />
+              
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className={`block text-sm font-medium mb-2 transition-colors duration-300 ${
