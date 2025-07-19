@@ -32,6 +32,12 @@ const TeakSpiceStore = () => {
   const [wishlist, setWishlist] = useState([]);
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // Check localStorage first, then system preference
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) return JSON.parse(saved);
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
 
   // JWT Helper
   const getToken = () => localStorage.getItem('token');
@@ -220,13 +226,20 @@ const TeakSpiceStore = () => {
     setCurrentView('orders');
   };
 
+  // --- Dark mode handler ---
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', JSON.stringify(newDarkMode));
+  };
+
   // --- Navigation handler ---
   const handleNav = (view) => setCurrentView(view);
 
   // --- Rendering ---
   console.log("TeakSpiceStore: orders state", orders);
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       <Header
         user={user}
         cartCount={getCartCount()}
@@ -234,13 +247,19 @@ const TeakSpiceStore = () => {
         onNav={handleNav}
         onLogin={() => setCurrentView('login')}
         onRegister={() => setCurrentView('register')}
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
       />
       
       <div className="flex">
         {/* Sidebar Navigation */}
         {user && (
-          <aside className="w-64 bg-white shadow-sm border-r border-slate-200 min-h-screen sticky top-0">
-            <Navigation user={user} currentView={currentView} onNav={handleNav} />
+          <aside className={`w-64 shadow-sm border-r min-h-screen sticky top-0 transition-colors duration-300 ${
+            darkMode 
+              ? 'bg-slate-800 border-slate-700' 
+              : 'bg-white border-slate-200'
+          }`}>
+            <Navigation user={user} currentView={currentView} onNav={handleNav} darkMode={darkMode} />
           </aside>
         )}
         
@@ -248,16 +267,26 @@ const TeakSpiceStore = () => {
         <main className={`flex-1 ${user ? 'ml-0' : 'mx-auto max-w-7xl'} px-4 sm:px-6 lg:px-8 py-8`}>
           {currentView === 'home' && (
             <div className="space-y-8">
-              <CompanyInfo />
+              <CompanyInfo darkMode={darkMode} />
               
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+              <div className={`rounded-xl shadow-sm border p-6 transition-colors duration-300 ${
+                darkMode 
+                  ? 'bg-slate-800 border-slate-700' 
+                  : 'bg-white border-slate-200'
+              }`}>
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900">Our Products</h2>
-                    <p className="text-slate-600 mt-1">Premium quality spices and kitchen essentials</p>
+                    <h2 className={`text-2xl font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-slate-900'
+                    }`}>Our Products</h2>
+                    <p className={`mt-1 transition-colors duration-300 ${
+                      darkMode ? 'text-slate-300' : 'text-slate-600'
+                    }`}>Premium quality spices and kitchen essentials</p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-500">
+                    <span className={`text-sm transition-colors duration-300 ${
+                      darkMode ? 'text-slate-400' : 'text-slate-500'
+                    }`}>
                       {Array.isArray(products) ? products.length : 0} products available
                     </span>
                   </div>
@@ -273,13 +302,18 @@ const TeakSpiceStore = () => {
                         wishlist={wishlist}
                         onAddToCart={addToCart}
                         onToggleWishlist={toggleWishlist}
+                        darkMode={darkMode}
                       />
                     ))
                   ) : (
                     <div className="col-span-full flex flex-col items-center justify-center py-16">
                       <div className="text-6xl mb-4">📦</div>
-                      <h3 className="text-lg font-semibold text-slate-900 mb-2">No products available</h3>
-                      <p className="text-slate-600">Check back later for new arrivals.</p>
+                      <h3 className={`text-lg font-semibold mb-2 transition-colors duration-300 ${
+                        darkMode ? 'text-white' : 'text-slate-900'
+                      }`}>No products available</h3>
+                      <p className={`transition-colors duration-300 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-600'
+                      }`}>Check back later for new arrivals.</p>
                     </div>
                   )}
                 </div>
