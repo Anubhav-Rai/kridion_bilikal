@@ -222,10 +222,13 @@ const TeakSpiceStore = () => {
       quantity: item.quantity
     }));
     
+    // Convert structured address to string format for backend compatibility
+    const addressString = `${address.fullName}\n${address.phone}\n${address.street}\n${address.city}${address.state ? ', ' + address.state : ''} ${address.postalCode}\n${address.country}${address.instructions ? '\n\nInstructions: ' + address.instructions : ''}`;
+    
     const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, {
       method: 'POST',
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ address, items: orderItems })
+      body: JSON.stringify({ address: addressString, items: orderItems })
     });
     
     if (!res.ok) {
