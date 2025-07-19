@@ -13,9 +13,6 @@ const CartView = ({
   getCartTotal,
   products // <-- Accept products as prop!
 }) => {
-  // Debug cart data
-  console.log('Cart data:', cart);
-  console.log('Products data:', products);
   
   return (
     <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
@@ -40,8 +37,6 @@ const CartView = ({
             p => p.id === productId || p._id === productId
           );
           
-          // Debug individual item
-          console.log(`Cart item ${index}:`, item, 'Found product:', prod);
           
           return (
             <div key={`${productId}-${index}`} className="flex items-center gap-4 p-4 border-b border-gray-200">

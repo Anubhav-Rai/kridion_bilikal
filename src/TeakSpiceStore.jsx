@@ -50,7 +50,10 @@ const TeakSpiceStore = () => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(Array.isArray(data) ? data : []))
-      .catch(() => setProducts([]));
+      .catch(err => {
+        console.error('Failed to fetch products:', err);
+        setProducts([]);
+      });
   }, []);
 
   // Try auto-login on mount
@@ -175,10 +178,13 @@ const TeakSpiceStore = () => {
 
   const getCartTotal = () => {
     return cart.reduce((total, item) => {
+      const productId = item.productId || item.id;
       const prod = products.find(
-        p => (p.id === item.productId || p._id === item.productId || p._id === item.id)
+        p => String(p.id) === String(productId) || String(p._id) === String(productId)
       );
-      return total + (prod ? prod.price * item.quantity : 0);
+      
+      const itemTotal = prod ? prod.price * item.quantity : 0;
+      return total + itemTotal;
     }, 0);
   };
 
