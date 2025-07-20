@@ -38,48 +38,48 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                 
                 
                 {/* Center & Right Section */}
-                <div className="flex items-center justify-end flex-1 gap-2 lg:gap-4 relative z-10">
+                <div className="flex items-center justify-between flex-1 gap-4 lg:gap-8 relative z-10 ml-8 lg:ml-16">
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
-                        className={`p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
+                        className={`p-3 lg:p-4 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
                             darkMode 
                                 ? 'text-yellow-400 hover:text-yellow-300 bg-slate-800/80 hover:bg-slate-700/80 shadow-slate-900/20' 
                                 : 'text-slate-600 hover:text-slate-900 bg-white/80 hover:bg-slate-100/80 shadow-slate-200/20'
                         }`}
                         title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                     >
-                        {darkMode ? <Sun size={16} className="drop-shadow-lg sm:w-[18px] sm:h-[18px]" /> : <Moon size={16} className="drop-shadow-lg sm:w-[18px] sm:h-[18px]" />}
+                        {darkMode ? <Sun size={20} className="drop-shadow-lg lg:w-6 lg:h-6" /> : <Moon size={20} className="drop-shadow-lg lg:w-6 lg:h-6" />}
                     </button>
 
                     <button
                         onClick={() => onNav('cart')}
-                        className={`relative flex items-center gap-1 sm:gap-2 px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg font-medium transition-colors text-sm ${
+                        className={`relative flex items-center gap-2 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 text-sm lg:text-base shadow-lg ${
                             darkMode 
                                 ? 'bg-white text-slate-900 hover:bg-slate-100' 
                                 : 'bg-slate-900 text-white hover:bg-slate-800'
                         }`}
                     >
-                        <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
+                        <ShoppingCart size={18} className="lg:w-5 lg:h-5" />
                         <span className="hidden sm:inline">Cart</span>
                         {cartCount > 0 && (
-                            <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center">
+                            <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center">
                                 {cartCount}
                             </span>
                         )}
                     </button>
                     
                     {user ? (
-                        <div className="flex items-center gap-2">
-                            <div className={`hidden sm:flex items-center gap-2 px-2 sm:px-3 py-1 sm:py-2 rounded-lg border transition-colors duration-300 ${
+                        <div className="flex items-center gap-3 lg:gap-4">
+                            <div className={`hidden sm:flex items-center gap-3 px-4 lg:px-5 py-2.5 lg:py-3 rounded-xl border transition-all duration-300 shadow-lg ${
                                 darkMode 
                                     ? 'bg-slate-700 border-slate-600' 
                                     : 'bg-slate-50 border-slate-200'
                             }`}>
-                                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-emerald-100 rounded-full flex items-center justify-center">
-                                    <User size={12} className="text-emerald-600" />
+                                <div className="w-6 h-6 lg:w-8 lg:h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                    <User size={14} className="text-emerald-600 lg:w-4 lg:h-4" />
                                 </div>
-                                <span className={`font-medium text-xs sm:text-sm transition-colors duration-300 ${
+                                <span className={`font-medium text-sm lg:text-base transition-colors duration-300 ${
                                     darkMode ? 'text-slate-200' : 'text-slate-700'
                                 }`}>
                                     {user.name}
@@ -87,21 +87,21 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                             </div>
                             <button
                                 onClick={onLogout}
-                                className={`flex items-center gap-1 px-2 sm:px-3 py-2 rounded-lg transition-colors ${
+                                className={`flex items-center gap-2 lg:gap-3 px-4 lg:px-5 py-2.5 lg:py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg ${
                                     darkMode 
                                         ? 'text-slate-400 hover:text-white hover:bg-slate-700' 
                                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                                 }`}
                             >
-                                <LogOut size={14} />
-                                <span className="hidden sm:inline text-sm">Logout</span>
+                                <LogOut size={16} className="lg:w-5 lg:h-5" />
+                                <span className="hidden sm:inline text-sm lg:text-base font-medium">Logout</span>
                             </button>
                         </div>
                     ) : (
-                        <div className="flex items-center gap-1 sm:gap-2">
+                        <div className="flex items-center gap-3 lg:gap-4">
                             <button 
                                 onClick={onLogin} 
-                                className={`font-medium px-2 py-1.5 sm:px-3 lg:px-4 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm ${
+                                className={`font-medium px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl transition-all duration-300 hover:scale-105 text-sm lg:text-base shadow-lg ${
                                     darkMode 
                                         ? 'text-slate-300 hover:text-white hover:bg-slate-700' 
                                         : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
@@ -111,7 +111,7 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                             </button>
                             <button 
                                 onClick={onRegister} 
-                                className="bg-emerald-600 text-white font-medium px-2 py-1.5 sm:px-3 lg:px-4 sm:py-2 rounded-lg hover:bg-emerald-700 transition-colors text-xs sm:text-sm"
+                                className="bg-emerald-600 text-white font-medium px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl hover:bg-emerald-700 transition-all duration-300 hover:scale-105 text-sm lg:text-base shadow-lg"
                             >
                                 Sign Up
                             </button>
