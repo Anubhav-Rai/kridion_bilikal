@@ -406,11 +406,7 @@ const TeakSpiceStore = () => {
         {user && (
           <>
             {/* Desktop Sidebar */}
-            <aside className={`hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-24 pt-16 transition-colors duration-300 z-10 ${
-              darkMode 
-                ? 'bg-slate-800 border-slate-700' 
-                : 'bg-white border-slate-200'
-            }`}>
+            <aside className="hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-24 pt-16 transition-all duration-300 z-10 backdrop-blur-sm border-white/10">
               <Navigation user={user} currentView={currentView} onNav={handleNav} darkMode={darkMode} />
             </aside>
             
