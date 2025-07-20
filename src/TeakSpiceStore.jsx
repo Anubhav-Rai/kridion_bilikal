@@ -513,8 +513,11 @@ const TeakSpiceStore = () => {
                         product={product}
                         user={user}
                         wishlist={wishlist}
+                        cart={cart}
                         onAddToCart={addToCart}
                         onToggleWishlist={toggleWishlist}
+                        onUpdateQuantity={updateCartQuantity}
+                        onRemoveFromCart={removeFromCart}
                         darkMode={darkMode}
                       />
                     ))

@@ -1,11 +1,21 @@
 import React from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, Plus, Minus } from 'lucide-react';
 
-const ProductCard = ({ product, user, wishlist, onAddToCart, onToggleWishlist, darkMode }) => {
+const ProductCard = ({ product, user, wishlist, cart, onAddToCart, onToggleWishlist, onUpdateQuantity, onRemoveFromCart, darkMode }) => {
   // Check stock availability
   const stock = product.stock || 0;
   const isInStock = stock > 0;
   const isLowStock = stock > 0 && stock <= 5;
+  
+  // Check if product is in cart and get quantity
+  const cartItem = cart?.find(item => 
+    String(item.productId) === String(product.id) || 
+    String(item.productId) === String(product._id) ||
+    String(item.id) === String(product.id) || 
+    String(item.id) === String(product._id)
+  );
+  const cartQuantity = cartItem?.quantity || 0;
+  const isInCart = cartQuantity > 0;
   
   return (
   <div className={`group rounded-xl border overflow-hidden hover:shadow-lg transition-all duration-300 ${
@@ -85,19 +95,60 @@ const ProductCard = ({ product, user, wishlist, onAddToCart, onToggleWishlist, d
         </div>
       </div>
       
-      <button 
-        onClick={() => isInStock && onAddToCart(product.id)} 
-        disabled={!isInStock}
-        className={`w-full py-2.5 px-4 rounded-lg font-medium transition-colors ${
-          !isInStock
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            : darkMode 
-              ? 'bg-white text-slate-900 hover:bg-slate-100 group-hover:bg-emerald-500 group-hover:text-white group-hover:hover:bg-emerald-600' 
-              : 'bg-slate-900 text-white hover:bg-slate-800 group-hover:bg-emerald-600 group-hover:hover:bg-emerald-700'
-        }`}
-      >
-        {!isInStock ? 'Out of Stock' : 'Add to Cart'}
-      </button>
+      {!isInCart ? (
+        <button 
+          onClick={() => isInStock && onAddToCart(product.id)} 
+          disabled={!isInStock}
+          className={`w-full py-2.5 px-4 rounded-lg font-medium transition-colors ${
+            !isInStock
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : darkMode 
+                ? 'bg-white text-slate-900 hover:bg-slate-100 group-hover:bg-emerald-500 group-hover:text-white group-hover:hover:bg-emerald-600' 
+                : 'bg-slate-900 text-white hover:bg-slate-800 group-hover:bg-emerald-600 group-hover:hover:bg-emerald-700'
+          }`}
+        >
+          {!isInStock ? 'Out of Stock' : 'Add to Cart'}
+        </button>
+      ) : (
+        <div className={`flex items-center justify-between rounded-lg border transition-colors duration-300 ${
+          darkMode 
+            ? 'bg-slate-700 border-slate-600' 
+            : 'bg-slate-50 border-slate-200'
+        }`}>
+          <button 
+            onClick={() => cartQuantity > 1 ? onUpdateQuantity(product.id, cartQuantity - 1) : onRemoveFromCart(product.id)}
+            className={`p-2 rounded-l-lg transition-colors duration-200 hover:bg-opacity-80 ${
+              darkMode 
+                ? 'hover:bg-slate-600 text-slate-300' 
+                : 'hover:bg-slate-200 text-slate-600'
+            }`}
+          >
+            <Minus size={16} />
+          </button>
+          
+          <div className={`px-4 py-2 min-w-[3rem] text-center font-medium transition-colors duration-300 ${
+            darkMode ? 'text-white' : 'text-slate-900'
+          }`}>
+            {cartQuantity}
+          </div>
+          
+          <button 
+            onClick={() => cartQuantity < stock && onUpdateQuantity(product.id, cartQuantity + 1)}
+            disabled={cartQuantity >= stock}
+            className={`p-2 rounded-r-lg transition-colors duration-200 ${
+              cartQuantity >= stock
+                ? darkMode 
+                  ? 'text-slate-500 cursor-not-allowed' 
+                  : 'text-slate-400 cursor-not-allowed'
+                : darkMode 
+                  ? 'hover:bg-slate-600 text-slate-300' 
+                  : 'hover:bg-slate-200 text-slate-600'
+            }`}
+          >
+            <Plus size={16} />
+          </button>
+        </div>
+      )}
     </div>
   </div>
   );
