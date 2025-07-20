@@ -32,7 +32,7 @@ const ContactUs = ({ darkMode }) => {
   };
 
   const handleWhatsApp = () => {
-    const phoneNumber = '919876543210'; // Without + sign for WhatsApp
+    const phoneNumber = '917015431317'; // Without + sign for WhatsApp
     const message = encodeURIComponent('Hello! I am interested in your products from KRIDION Agro.');
     
     // WhatsApp Web for desktop browsers, WhatsApp app for mobile
