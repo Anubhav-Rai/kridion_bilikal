@@ -28,7 +28,7 @@ const ContactUs = ({ darkMode }) => {
 
   const handleCallNow = () => {
     // This will open the phone app on mobile devices and prompt to call on desktop
-    window.location.href = 'tel:+917027851317';
+    window.location.href = 'tel:+91 7027851317';
   };
 
   const handleWhatsApp = () => {
@@ -173,7 +173,7 @@ const ContactUs = ({ darkMode }) => {
                         ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400' 
                         : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500'
                     }`}
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 7027851317"
                   />
                 </div>
                 
@@ -257,7 +257,7 @@ const ContactUs = ({ darkMode }) => {
                   }`}>Phone</h4>
                   <p className={`text-sm mt-1 transition-colors duration-300 ${
                     darkMode ? 'text-slate-300' : 'text-slate-600'
-                  }`}>+91 98765 43210</p>
+                  }`}>+91 7027851317</p>
                   <p className={`text-sm transition-colors duration-300 ${
                     darkMode ? 'text-slate-300' : 'text-slate-600'
                   }`}>+91 87654 32109</p>
