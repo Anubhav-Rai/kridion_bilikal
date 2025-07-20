@@ -1,8 +1,29 @@
 import React from 'react';
 
-const ProfileView = ({ user }) => (
-  <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-    <h2 className="text-2xl font-bold mb-6">Profile</h2>
+const ProfileView = ({ user, darkMode }) => (
+  <div className="max-w-2xl mx-auto space-y-12">
+    {/* Hero Section */}
+    <div className="text-center space-y-6">
+      <h1 className={`text-5xl lg:text-6xl font-black tracking-tight transition-all duration-700 ${
+        darkMode ? 'text-white' : 'text-black'
+      }`}>
+        Your
+        <span className="block bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+          Profile
+        </span>
+      </h1>
+      <p className={`text-xl leading-relaxed ${
+        darkMode ? 'text-white/70' : 'text-black/70'
+      }`}>
+        Manage your account information
+      </p>
+    </div>
+    
+    <div className={`rounded-3xl backdrop-blur-xl border p-12 ${
+      darkMode 
+        ? 'bg-white/5 border-white/10' 
+        : 'bg-black/5 border-black/10'
+    }`}>
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
@@ -31,6 +52,7 @@ const ProfileView = ({ user }) => (
           readOnly
         />
       </div>
+    </div>
     </div>
   </div>
 );

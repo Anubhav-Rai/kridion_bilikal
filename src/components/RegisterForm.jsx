@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, User, Mail, Phone, Lock, AlertCircle, Check } from 'lucide-react';
 
-const RegisterForm = ({ onRegister, onSwitchToLogin, loading }) => {
+const RegisterForm = ({ onRegister, onSwitchToLogin, loading, darkMode }) => {
   const [fields, setFields] = useState({ name: '', email: '', phone: '', password: '' });
   const [showPass, setShowPass] = useState(false);
   const [errors, setErrors] = useState({});
@@ -130,13 +130,31 @@ const RegisterForm = ({ onRegister, onSwitchToLogin, loading }) => {
   const passwordStrength = getPasswordStrength(fields.password);
 
   return (
-    <div className="max-w-md mx-auto bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-100">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
-        <p className="text-gray-600">Join us to start shopping premium products</p>
+    <div className="max-w-2xl mx-auto">
+      {/* Hero Section */}
+      <div className="text-center mb-12 space-y-6">
+        <h1 className={`text-5xl lg:text-6xl font-black tracking-tight transition-all duration-700 ${
+          darkMode ? 'text-white' : 'text-black'
+        }`}>
+          Join
+          <span className="block bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+            KRIDION
+          </span>
+        </h1>
+        <p className={`text-xl leading-relaxed ${
+          darkMode ? 'text-white/70' : 'text-black/70'
+        }`}>
+          Create your account and start shopping premium kitchen essentials
+        </p>
       </div>
-      
-      <form onSubmit={handleSubmit} className="space-y-6">
+
+      {/* Register Form */}
+      <div className={`rounded-3xl backdrop-blur-xl border transition-all duration-500 p-12 ${
+        darkMode 
+          ? 'bg-white/5 border-white/10' 
+          : 'bg-black/5 border-black/10'
+      }`}>
+        <form onSubmit={handleSubmit} className="space-y-8">
         {/* Name Field */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
@@ -322,19 +340,22 @@ const RegisterForm = ({ onRegister, onSwitchToLogin, loading }) => {
             'Create Account'
           )}
         </button>
-      </form>
-
-      {/* Footer */}
-      <div className="mt-8 text-center">
-        <p className="text-gray-600">
-          Already have an account?{' '}
-          <button
-            onClick={onSwitchToLogin}
-            className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
-          >
-            Sign in here
-          </button>
-        </p>
+        </form>
+        
+        {/* Footer */}
+        <div className="mt-10 text-center">
+          <p className={`text-lg ${
+            darkMode ? 'text-white/60' : 'text-black/60'
+          }`}>
+            Already have an account?{' '}
+            <button
+              onClick={onSwitchToLogin}
+              className="font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent hover:from-emerald-400 hover:to-teal-500 transition-all duration-300"
+            >
+              Sign in here
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );

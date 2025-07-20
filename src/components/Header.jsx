@@ -6,64 +6,55 @@ import logo from '../assets/kridion-logo.png'  // adjust path to wherever you pu
 
 
 const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMode, toggleDarkMode }) => (
-    <header className={`border-b shadow-sm sticky top-0 z-50 transition-colors duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl transition-all duration-700 ${
         darkMode 
-            ? 'bg-slate-800 border-slate-700' 
-            : 'bg-white border-slate-200'
+            ? 'bg-black/80 border-b border-white/10' 
+            : 'bg-white/80 border-b border-black/10'
     }`}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-            <div className="flex justify-between items-center h-14 sm:h-16">
+        <div className="max-w-8xl mx-auto px-6 lg:px-12">
+            <div className="flex justify-between items-center h-20 lg:h-24">
                 {/* Logo Section */}
-                <div className="flex items-center gap-2 sm:gap-3">
-                    <img
-                        src={logo}
-                        alt="KRIDION(agro) Logo"
-                        className="h-6 sm:h-8 w-auto"
-                    />
+                <div className="flex items-center gap-4 cursor-pointer group transition-all duration-300 hover:scale-105" onClick={() => onNav('home')}>
+                    <div className="relative">
+                        <img
+                            src={logo}
+                            alt="KRIDION(agro) Logo"
+                            className="h-10 sm:h-12 w-auto filter drop-shadow-lg transition-all duration-300 group-hover:scale-110"
+                        />
+                    </div>
                     <div className="flex flex-col">
-                        <span className={`text-lg sm:text-xl font-bold transition-colors duration-300 ${
-                            darkMode ? 'text-white' : 'text-slate-900'
+                        <span className={`text-2xl font-black tracking-tight transition-all duration-300 ${
+                            darkMode ? 'text-white' : 'text-black'
                         }`}>
                             KRIDION
                         </span>
-                        <span className="text-xs text-emerald-600 font-semibold tracking-wide">
+                        <span className={`text-xs font-semibold tracking-[0.2em] opacity-60 ${
+                            darkMode ? 'text-emerald-400' : 'text-emerald-600'
+                        }`}>
                             AGRO
                         </span>
                     </div>
                 </div>
                 
-                {/* Center Navigation - Always show */}
-                <nav className="hidden md:flex items-center gap-8">
-                    <button
-                        onClick={() => onNav('home')}
-                        className={`font-medium transition-colors ${
-                            darkMode 
-                                ? 'text-slate-300 hover:text-white' 
-                                : 'text-slate-700 hover:text-slate-900'
-                        }`}
-                    >
-                        Products
-                    </button>
-                    <button
-                        onClick={() => onNav('about')}
-                        className={`font-medium transition-colors ${
-                            darkMode 
-                                ? 'text-slate-300 hover:text-white' 
-                                : 'text-slate-700 hover:text-slate-900'
-                        }`}
-                    >
-                        About
-                    </button>
-                    <button
-                        onClick={() => onNav('contact')}
-                        className={`font-medium transition-colors ${
-                            darkMode 
-                                ? 'text-slate-300 hover:text-white' 
-                                : 'text-slate-700 hover:text-slate-900'
-                        }`}
-                    >
-                        Contact
-                    </button>
+                {/* Modern Navigation */}
+                <nav className="hidden lg:flex items-center gap-1">
+                    {['Products', 'About', 'Contact'].map((item, index) => (
+                        <button
+                            key={item}
+                            onClick={() => onNav(item === 'Products' ? 'home' : item.toLowerCase())}
+                            className={`relative px-8 py-3 font-medium text-lg transition-all duration-500 hover:scale-105 group ${
+                                darkMode ? 'text-white/80 hover:text-white' : 'text-black/80 hover:text-black'
+                            }`}
+                        >
+                            <span className="relative z-10">{item}</span>
+                            <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 ${
+                                darkMode 
+                                    ? 'bg-white/10 group-hover:bg-white/20' 
+                                    : 'bg-black/5 group-hover:bg-black/10'
+                            }`}></div>
+                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-500"></div>
+                        </button>
+                    ))}
                 </nav>
                 
                 {/* Right Section */}
@@ -71,14 +62,14 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
-                        className={`p-2 rounded-lg transition-colors ${
+                        className={`p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
                             darkMode 
-                                ? 'text-slate-300 hover:text-white hover:bg-slate-700' 
-                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                                ? 'text-yellow-400 hover:text-yellow-300 bg-slate-800/80 hover:bg-slate-700/80 shadow-slate-900/20' 
+                                : 'text-slate-600 hover:text-slate-900 bg-white/80 hover:bg-slate-100/80 shadow-slate-200/20'
                         }`}
                         title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                     >
-                        {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+                        {darkMode ? <Sun size={18} className="drop-shadow-lg" /> : <Moon size={18} className="drop-shadow-lg" />}
                     </button>
 
                     <button

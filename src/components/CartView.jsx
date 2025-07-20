@@ -11,23 +11,54 @@ const CartView = ({
   onUpdateQuantity,
   onRemoveFromCart,
   getCartTotal,
-  products // <-- Accept products as prop!
+  products,
+  darkMode
 }) => {
   
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-      <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
-      {cart.length === 0 ? (
-      <div className="text-center py-8">
-        <ShoppingCart size={64} className="mx-auto text-gray-400 mb-4" />
-        <p className="text-gray-500">Your cart is empty</p>
-        <button
-          onClick={() => onNav('home')}
-          className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors"
-        >
-          Continue Shopping
-        </button>
+    <div className="max-w-6xl mx-auto space-y-12">
+      {/* Hero Section */}
+      <div className="text-center space-y-6">
+        <h1 className={`text-5xl lg:text-6xl font-black tracking-tight transition-all duration-700 ${
+          darkMode ? 'text-white' : 'text-black'
+        }`}>
+          Your
+          <span className="block bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+            Cart
+          </span>
+        </h1>
+        <p className={`text-xl leading-relaxed ${
+          darkMode ? 'text-white/70' : 'text-black/70'
+        }`}>
+          Review your items and proceed to checkout
+        </p>
       </div>
+      {cart.length === 0 ? (
+        <div className={`text-center py-20 rounded-3xl backdrop-blur-xl border ${
+          darkMode 
+            ? 'bg-white/5 border-white/10' 
+            : 'bg-black/5 border-black/10'
+        }`}>
+          <ShoppingCart size={120} className={`mx-auto mb-8 ${
+            darkMode ? 'text-white/40' : 'text-black/40'
+          }`} />
+          <h3 className={`text-2xl font-black mb-4 ${
+            darkMode ? 'text-white' : 'text-black'
+          }`}>Your cart is empty</h3>
+          <p className={`text-lg mb-8 ${
+            darkMode ? 'text-white/60' : 'text-black/60'
+          }`}>Add some amazing products to get started</p>
+          <button
+            onClick={() => onNav('home')}
+            className={`px-8 py-4 rounded-2xl font-black text-lg transition-all duration-500 hover:scale-105 ${
+              darkMode 
+                ? 'bg-white text-black hover:bg-white/90' 
+                : 'bg-black text-white hover:bg-black/90'
+            }`}
+          >
+            Continue Shopping
+          </button>
+        </div>
     ) : (
       <div>
         {cart.map((item, index) => {

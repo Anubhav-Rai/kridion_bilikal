@@ -377,7 +377,22 @@ const TeakSpiceStore = () => {
   // --- Rendering ---
   console.log("TeakSpiceStore: orders state", orders);
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+    <div className={`min-h-screen transition-all duration-700 relative ${darkMode ? 'bg-black' : 'bg-white'}`}>
+      {/* Modern geometric background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 100 100">
+          <defs>
+            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#grid)" className={darkMode ? 'text-white' : 'text-slate-900'} />
+        </svg>
+        
+        {/* Floating gradient orbs */}
+        <div className={`absolute top-20 right-20 w-72 h-72 rounded-full blur-3xl opacity-30 animate-pulse ${darkMode ? 'bg-gradient-to-r from-violet-600 to-purple-600' : 'bg-gradient-to-r from-blue-400 to-purple-400'}`}></div>
+        <div className={`absolute bottom-20 left-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse animation-delay-1000 ${darkMode ? 'bg-gradient-to-r from-emerald-600 to-teal-600' : 'bg-gradient-to-r from-emerald-400 to-teal-400'}`}></div>
+      </div>
       <Header
         user={user}
         cartCount={getCartCount()}
@@ -475,37 +490,53 @@ const TeakSpiceStore = () => {
         )}
         
         {/* Main Content */}
-        <main className={`flex-1 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 ${
-          user ? 'pb-20 lg:pb-8' : 'pb-20 lg:pb-8 mx-auto max-w-7xl'
+        <main className={`flex-1 px-6 lg:px-12 pt-32 pb-32 relative z-10 ${
+          user ? 'max-w-none' : 'max-w-none'
         }`}>
           {currentView === 'home' && (
-            <div className="space-y-8">
-              <CompanyInfo darkMode={darkMode} />
-              
-              <div className={`rounded-xl shadow-sm border p-6 transition-colors duration-300 ${
-                darkMode 
-                  ? 'bg-slate-800 border-slate-700' 
-                  : 'bg-white border-slate-200'
-              }`}>
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <h2 className={`text-2xl font-bold transition-colors duration-300 ${
-                      darkMode ? 'text-white' : 'text-slate-900'
-                    }`}>Our Products</h2>
-                    <p className={`mt-1 transition-colors duration-300 ${
-                      darkMode ? 'text-slate-300' : 'text-slate-600'
-                    }`}>Premium quality spices and kitchen essentials</p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className={`text-sm transition-colors duration-300 ${
-                      darkMode ? 'text-slate-400' : 'text-slate-500'
-                    }`}>
-                      {Array.isArray(products) ? products.length : 0} products available
+            <div className="space-y-20">
+              {/* Hero Section */}
+              <section className="text-center space-y-8">
+                <div className="space-y-6">
+                  <h1 className={`text-5xl lg:text-7xl font-black tracking-tight transition-all duration-700 ${
+                    darkMode ? 'text-white' : 'text-black'
+                  }`}>
+                    Premium
+                    <span className="block bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+                      Kitchen Essentials
                     </span>
+                  </h1>
+                  <p className={`text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed ${
+                    darkMode ? 'text-white/70' : 'text-black/70'
+                  }`}>
+                    Discover handcrafted teak wood products and premium spices that transform your cooking experience
+                  </p>
+                </div>
+              </section>
+
+              {/* Products Section */}
+              <section className="space-y-12">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-4">
+                    <h2 className={`text-4xl font-black transition-all duration-300 ${
+                      darkMode ? 'text-white' : 'text-black'
+                    }`}>
+                      Our Collection
+                    </h2>
+                    <div className={`flex items-center gap-4 px-6 py-3 rounded-2xl backdrop-blur-xl border transition-all duration-500 ${
+                      darkMode 
+                        ? 'bg-white/5 border-white/10 text-white/60' 
+                        : 'bg-black/5 border-black/10 text-black/60'
+                    }`}>
+                      <span className="text-lg font-semibold">
+                        {Array.isArray(products) ? products.length : 0} Products Available
+                      </span>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                {/* Modern Product Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
                   {Array.isArray(products) && products.length > 0 ? (
                     products.map(product => (
                       <ProductCard
@@ -533,7 +564,7 @@ const TeakSpiceStore = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </section>
             </div>
           )}
 
@@ -542,6 +573,7 @@ const TeakSpiceStore = () => {
               onLogin={handleLogin}
               onSwitchToRegister={() => setCurrentView('register')}
               loading={loading}
+              darkMode={darkMode}
             />
           )}
           {currentView === 'register' && (
@@ -549,6 +581,7 @@ const TeakSpiceStore = () => {
               onRegister={handleRegister}
               onSwitchToLogin={() => setCurrentView('login')}
               loading={loading}
+              darkMode={darkMode}
             />
           )}
           {currentView === 'cart' && (
@@ -563,9 +596,10 @@ const TeakSpiceStore = () => {
               onRemoveFromCart={removeFromCart}
               getCartTotal={getCartTotal}
               products={products}
+              darkMode={darkMode}
             />
           )}
-          {currentView === 'orders' && user && <OrdersView orders={orders} products={products} />}
+          {currentView === 'orders' && user && <OrdersView orders={orders} products={products} darkMode={darkMode} />}
           {currentView === 'wishlist' && user && (
             <WishlistView
               products={products}
@@ -573,9 +607,10 @@ const TeakSpiceStore = () => {
               user={user}
               onAddToCart={addToCart}
               onToggleWishlist={toggleWishlist}
+              darkMode={darkMode}
             />
           )}
-          {currentView === 'profile' && user && <ProfileView user={user} />}
+          {currentView === 'profile' && user && <ProfileView user={user} darkMode={darkMode} />}
           {currentView === 'about' && <AboutUs darkMode={darkMode} />}
           {currentView === 'contact' && <ContactUs darkMode={darkMode} />}
         </main>

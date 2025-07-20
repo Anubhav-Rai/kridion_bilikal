@@ -2,7 +2,7 @@ import React from 'react';
 import { Package } from 'lucide-react';
 
 
-const OrdersView = ({ orders, products }) => {
+const OrdersView = ({ orders, products, darkMode }) => {
   // Calculate order total from items
   const calculateOrderTotal = (orderItems) => {
     return orderItems.reduce((total, item) => {
@@ -16,8 +16,23 @@ const OrdersView = ({ orders, products }) => {
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-      <h2 className="text-2xl font-bold mb-6">My Orders</h2>
+    <div className="max-w-4xl mx-auto space-y-12">
+      {/* Hero Section */}
+      <div className="text-center space-y-6">
+        <h1 className={`text-5xl lg:text-6xl font-black tracking-tight transition-all duration-700 ${
+          darkMode ? 'text-white' : 'text-black'
+        }`}>
+          Your
+          <span className="block bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+            Orders
+          </span>
+        </h1>
+        <p className={`text-xl leading-relaxed ${
+          darkMode ? 'text-white/70' : 'text-black/70'
+        }`}>
+          Track your purchases and order history
+        </p>
+      </div>
       {orders.length === 0 ? (
         <div className="text-center py-8">
           <Package size={64} className="mx-auto text-gray-400 mb-4" />
