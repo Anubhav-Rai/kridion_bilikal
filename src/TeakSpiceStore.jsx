@@ -411,11 +411,7 @@ const TeakSpiceStore = () => {
             </aside>
             
             {/* Mobile Bottom Navigation */}
-            <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t transition-colors duration-300 ${
-              darkMode 
-                ? 'bg-slate-800 border-slate-700' 
-                : 'bg-white border-slate-200'
-            }`}>
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t transition-all duration-300 backdrop-blur-sm border-white/10">
               <Navigation user={user} currentView={currentView} onNav={handleNav} darkMode={darkMode} isMobile={true} />
             </div>
           </>
@@ -423,11 +419,7 @@ const TeakSpiceStore = () => {
         
         {/* Mobile Navigation for Non-logged-in users */}
         {!user && (
-          <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t transition-colors duration-300 ${
-            darkMode 
-              ? 'bg-slate-800 border-slate-700' 
-              : 'bg-white border-slate-200'
-          }`}>
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t transition-all duration-300 backdrop-blur-sm border-white/10">
             <nav className="p-2">
               <div className="flex justify-around items-center">
                 <button 
