@@ -6,24 +6,24 @@ import logo from '../assets/kridion-logo.png'  // adjust path to wherever you pu
 
 
 const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMode, toggleDarkMode }) => (
-    <header className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl transition-all duration-700 ${
+    <header className={`fixed top-0 left-0 right-0 z-[60] backdrop-blur-2xl transition-all duration-700 ${
         darkMode 
             ? 'bg-black/80 border-b border-white/10' 
             : 'bg-white/80 border-b border-black/10'
     }`}>
-        <div className="max-w-8xl mx-auto px-6 lg:px-12">
-            <div className="flex justify-between items-center h-20 lg:h-24">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div className="flex justify-between items-center h-16 sm:h-20 lg:h-24">
                 {/* Logo Section */}
-                <div className="flex items-center gap-4 cursor-pointer group transition-all duration-300 hover:scale-105" onClick={() => onNav('home')}>
+                <div className="flex items-center gap-3 sm:gap-4 cursor-pointer group transition-all duration-300 hover:scale-105 relative z-10" onClick={() => onNav('home')}>
                     <div className="relative">
                         <img
                             src={logo}
                             alt="KRIDION(agro) Logo"
-                            className="h-10 sm:h-12 w-auto filter drop-shadow-lg transition-all duration-300 group-hover:scale-110"
+                            className="h-8 sm:h-10 lg:h-12 w-auto filter drop-shadow-lg transition-all duration-300 group-hover:scale-110"
                         />
                     </div>
                     <div className="flex flex-col">
-                        <span className={`text-2xl font-black tracking-tight transition-all duration-300 ${
+                        <span className={`text-lg sm:text-xl lg:text-2xl font-black tracking-tight transition-all duration-300 ${
                             darkMode ? 'text-white' : 'text-black'
                         }`}>
                             KRIDION
@@ -58,30 +58,30 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                 </nav>
                 
                 {/* Right Section */}
-                <div className="flex items-center gap-2 sm:gap-3">
+                <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 relative z-10">
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
-                        className={`p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
+                        className={`p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
                             darkMode 
                                 ? 'text-yellow-400 hover:text-yellow-300 bg-slate-800/80 hover:bg-slate-700/80 shadow-slate-900/20' 
                                 : 'text-slate-600 hover:text-slate-900 bg-white/80 hover:bg-slate-100/80 shadow-slate-200/20'
                         }`}
                         title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                     >
-                        {darkMode ? <Sun size={18} className="drop-shadow-lg" /> : <Moon size={18} className="drop-shadow-lg" />}
+                        {darkMode ? <Sun size={16} className="drop-shadow-lg sm:w-[18px] sm:h-[18px]" /> : <Moon size={16} className="drop-shadow-lg sm:w-[18px] sm:h-[18px]" />}
                     </button>
 
                     <button
                         onClick={() => onNav('cart')}
-                        className={`relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors ${
+                        className={`relative flex items-center gap-1 sm:gap-2 px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg font-medium transition-colors text-sm ${
                             darkMode 
                                 ? 'bg-white text-slate-900 hover:bg-slate-100' 
                                 : 'bg-slate-900 text-white hover:bg-slate-800'
                         }`}
                     >
-                        <ShoppingCart size={16} />
-                        <span className="hidden sm:inline text-sm">Cart</span>
+                        <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
+                        <span className="hidden sm:inline">Cart</span>
                         {cartCount > 0 && (
                             <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center">
                                 {cartCount}
@@ -118,10 +118,10 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                             </button>
                         </div>
                     ) : (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2">
                             <button 
                                 onClick={onLogin} 
-                                className={`font-medium px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors text-sm ${
+                                className={`font-medium px-2 py-1.5 sm:px-3 lg:px-4 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm ${
                                     darkMode 
                                         ? 'text-slate-300 hover:text-white hover:bg-slate-700' 
                                         : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
@@ -131,7 +131,7 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                             </button>
                             <button 
                                 onClick={onRegister} 
-                                className="bg-emerald-600 text-white font-medium px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-emerald-700 transition-colors text-sm"
+                                className="bg-emerald-600 text-white font-medium px-2 py-1.5 sm:px-3 lg:px-4 sm:py-2 rounded-lg hover:bg-emerald-700 transition-colors text-xs sm:text-sm"
                             >
                                 Sign Up
                             </button>

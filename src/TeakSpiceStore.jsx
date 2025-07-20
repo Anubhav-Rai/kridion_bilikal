@@ -406,7 +406,7 @@ const TeakSpiceStore = () => {
         {user && (
           <>
             {/* Desktop Sidebar */}
-            <aside className={`hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-20 transition-colors duration-300 ${
+            <aside className={`hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-24 transition-colors duration-300 z-10 ${
               darkMode 
                 ? 'bg-slate-800 border-slate-700' 
                 : 'bg-white border-slate-200'
@@ -415,7 +415,7 @@ const TeakSpiceStore = () => {
             </aside>
             
             {/* Mobile Bottom Navigation */}
-            <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t transition-colors duration-300 ${
+            <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t transition-colors duration-300 ${
               darkMode 
                 ? 'bg-slate-800 border-slate-700' 
                 : 'bg-white border-slate-200'
@@ -427,7 +427,7 @@ const TeakSpiceStore = () => {
         
         {/* Mobile Navigation for Non-logged-in users */}
         {!user && (
-          <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t transition-colors duration-300 ${
+          <div className={`lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t transition-colors duration-300 ${
             darkMode 
               ? 'bg-slate-800 border-slate-700' 
               : 'bg-white border-slate-200'
