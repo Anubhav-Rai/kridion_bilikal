@@ -6,7 +6,7 @@ import logo from '../assets/kridion-logo.png'  // adjust path to wherever you pu
 
 
 const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMode, toggleDarkMode }) => (
-    <header className="fixed top-0 left-0 right-0 z-[60] backdrop-blur-2xl transition-all duration-700">
+    <header className="fixed top-0 left-0 right-0 z-[60] transition-all duration-700">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12">
             <div className="flex justify-between items-center h-16 sm:h-20 lg:h-24">
                 {/* Logo Section */}
