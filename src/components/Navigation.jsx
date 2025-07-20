@@ -104,7 +104,7 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
       </div>
     ) : (
       // Desktop Sidebar Navigation
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className={`text-xs font-semibold uppercase tracking-wide mb-4 transition-colors duration-300 ${
           darkMode ? 'text-slate-400' : 'text-slate-500'
         }`}>
@@ -113,98 +113,98 @@ const Navigation = ({ user, currentView, onNav, darkMode, isMobile }) => user &&
         
         <button 
           onClick={() => onNav('home')} 
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 font-medium text-left ${
+          className={`w-full flex items-center gap-3 px-4 lg:px-5 py-3 lg:py-3.5 rounded-xl transition-all duration-300 hover:scale-105 font-medium text-left shadow-lg ${
             currentView === 'home' 
               ? darkMode 
-                ? 'bg-emerald-900/50 text-emerald-400 border-r-2 border-emerald-500' 
-                : 'bg-emerald-50 text-emerald-700 border-r-2 border-emerald-600'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                : 'bg-emerald-600 text-white hover:bg-emerald-700'
               : darkMode 
-                ? 'text-slate-300 hover:bg-slate-700 hover:text-white' 
-                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white' 
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
           }`}
         >
-          <Package size={18} />
-          <span>Products</span>
+          <Package size={18} className="lg:w-5 lg:h-5" />
+          <span className="text-sm lg:text-base">Products</span>
         </button>
         
         <button 
           onClick={() => onNav('orders')} 
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 font-medium text-left ${
+          className={`w-full flex items-center gap-3 px-4 lg:px-5 py-3 lg:py-3.5 rounded-xl transition-all duration-300 hover:scale-105 font-medium text-left shadow-lg ${
             currentView === 'orders' 
               ? darkMode 
-                ? 'bg-emerald-900/50 text-emerald-400 border-r-2 border-emerald-500' 
-                : 'bg-emerald-50 text-emerald-700 border-r-2 border-emerald-600'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                : 'bg-emerald-600 text-white hover:bg-emerald-700'
               : darkMode 
-                ? 'text-slate-300 hover:bg-slate-700 hover:text-white' 
-                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white' 
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
           }`}
         >
-          <ShoppingBag size={18} />
-          <span>My Orders</span>
+          <ShoppingBag size={18} className="lg:w-5 lg:h-5" />
+          <span className="text-sm lg:text-base">My Orders</span>
         </button>
         
         <button 
           onClick={() => onNav('wishlist')} 
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 font-medium text-left ${
+          className={`w-full flex items-center gap-3 px-4 lg:px-5 py-3 lg:py-3.5 rounded-xl transition-all duration-300 hover:scale-105 font-medium text-left shadow-lg ${
             currentView === 'wishlist' 
               ? darkMode 
-                ? 'bg-emerald-900/50 text-emerald-400 border-r-2 border-emerald-500' 
-                : 'bg-emerald-50 text-emerald-700 border-r-2 border-emerald-600'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                : 'bg-emerald-600 text-white hover:bg-emerald-700'
               : darkMode 
-                ? 'text-slate-300 hover:bg-slate-700 hover:text-white' 
-                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white' 
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
           }`}
         >
-          <Heart size={18} />
-          <span>Wishlist</span>
+          <Heart size={18} className="lg:w-5 lg:h-5" />
+          <span className="text-sm lg:text-base">Wishlist</span>
         </button>
         
         <button 
           onClick={() => onNav('about')} 
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 font-medium text-left ${
+          className={`w-full flex items-center gap-3 px-4 lg:px-5 py-3 lg:py-3.5 rounded-xl transition-all duration-300 hover:scale-105 font-medium text-left shadow-lg ${
             currentView === 'about' 
               ? darkMode 
-                ? 'bg-emerald-900/50 text-emerald-400 border-r-2 border-emerald-500' 
-                : 'bg-emerald-50 text-emerald-700 border-r-2 border-emerald-600'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                : 'bg-emerald-600 text-white hover:bg-emerald-700'
               : darkMode 
-                ? 'text-slate-300 hover:bg-slate-700 hover:text-white' 
-                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white' 
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
           }`}
         >
-          <Info size={18} />
-          <span>About</span>
+          <Info size={18} className="lg:w-5 lg:h-5" />
+          <span className="text-sm lg:text-base">About</span>
         </button>
         
         <button 
           onClick={() => onNav('contact')} 
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 font-medium text-left ${
+          className={`w-full flex items-center gap-3 px-4 lg:px-5 py-3 lg:py-3.5 rounded-xl transition-all duration-300 hover:scale-105 font-medium text-left shadow-lg ${
             currentView === 'contact' 
               ? darkMode 
-                ? 'bg-emerald-900/50 text-emerald-400 border-r-2 border-emerald-500' 
-                : 'bg-emerald-50 text-emerald-700 border-r-2 border-emerald-600'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                : 'bg-emerald-600 text-white hover:bg-emerald-700'
               : darkMode 
-                ? 'text-slate-300 hover:bg-slate-700 hover:text-white' 
-                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white' 
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
           }`}
         >
-          <Phone size={18} />
-          <span>Contact</span>
+          <Phone size={18} className="lg:w-5 lg:h-5" />
+          <span className="text-sm lg:text-base">Contact</span>
         </button>
         
         <button 
           onClick={() => onNav('profile')} 
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 font-medium text-left ${
+          className={`w-full flex items-center gap-3 px-4 lg:px-5 py-3 lg:py-3.5 rounded-xl transition-all duration-300 hover:scale-105 font-medium text-left shadow-lg ${
             currentView === 'profile' 
               ? darkMode 
-                ? 'bg-emerald-900/50 text-emerald-400 border-r-2 border-emerald-500' 
-                : 'bg-emerald-50 text-emerald-700 border-r-2 border-emerald-600'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                : 'bg-emerald-600 text-white hover:bg-emerald-700'
               : darkMode 
-                ? 'text-slate-300 hover:bg-slate-700 hover:text-white' 
-                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white' 
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
           }`}
         >
-          <Settings size={18} />
-          <span>Profile</span>
+          <Settings size={18} className="lg:w-5 lg:h-5" />
+          <span className="text-sm lg:text-base">Profile</span>
         </button>
       </div>
     )}
