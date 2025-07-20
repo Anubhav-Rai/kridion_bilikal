@@ -7,12 +7,13 @@ const ProductCard = ({ product, user, wishlist, cart, onAddToCart, onToggleWishl
   const isInStock = stock > 0;
   const isLowStock = stock > 0 && stock <= 5;
   
+  // Get the correct product ID (API uses _id, local data uses id)
+  const productId = product._id || product.id;
+  
   // Check if product is in cart and get quantity
   const cartItem = cart?.find(item => 
-    String(item.productId) === String(product.id) || 
-    String(item.productId) === String(product._id) ||
-    String(item.id) === String(product.id) || 
-    String(item.id) === String(product._id)
+    String(item.productId) === String(productId) ||
+    String(item.id) === String(productId)
   );
   const cartQuantity = cartItem?.quantity || 0;
   const isInCart = cartQuantity > 0;
@@ -32,16 +33,16 @@ const ProductCard = ({ product, user, wishlist, cart, onAddToCart, onToggleWishl
       </div>
       {user && (
         <button 
-          onClick={() => onToggleWishlist(product.id)} 
+          onClick={() => onToggleWishlist(productId)} 
           className={`absolute top-3 right-3 p-2 rounded-lg transition-all duration-200 ${
-            wishlist.includes(product.id) 
+            wishlist.includes(productId) 
               ? 'bg-rose-500 text-white shadow-md' 
               : darkMode 
                 ? 'bg-slate-800 text-slate-400 hover:bg-rose-900 hover:text-rose-400 shadow-sm border border-slate-600'
                 : 'bg-white text-slate-400 hover:bg-rose-50 hover:text-rose-500 shadow-sm border border-slate-200'
           }`}
         >
-          <Heart size={16} fill={wishlist.includes(product.id) ? 'currentColor' : 'none'} />
+          <Heart size={16} fill={wishlist.includes(productId) ? 'currentColor' : 'none'} />
         </button>
       )}
     </div>
@@ -97,7 +98,7 @@ const ProductCard = ({ product, user, wishlist, cart, onAddToCart, onToggleWishl
       
       {!isInCart ? (
         <button 
-          onClick={() => isInStock && onAddToCart(product.id)} 
+          onClick={() => isInStock && onAddToCart(productId)} 
           disabled={!isInStock}
           className={`w-full py-2.5 px-4 rounded-lg font-medium transition-colors ${
             !isInStock
@@ -116,7 +117,7 @@ const ProductCard = ({ product, user, wishlist, cart, onAddToCart, onToggleWishl
             : 'bg-slate-50 border-slate-200'
         }`}>
           <button 
-            onClick={() => cartQuantity > 1 ? onUpdateQuantity(product.id, cartQuantity - 1) : onRemoveFromCart(product.id)}
+            onClick={() => cartQuantity > 1 ? onUpdateQuantity(productId, cartQuantity - 1) : onRemoveFromCart(productId)}
             className={`p-2 rounded-l-lg transition-colors duration-200 hover:bg-opacity-80 ${
               darkMode 
                 ? 'hover:bg-slate-600 text-slate-300' 
@@ -133,7 +134,7 @@ const ProductCard = ({ product, user, wishlist, cart, onAddToCart, onToggleWishl
           </div>
           
           <button 
-            onClick={() => cartQuantity < stock && onUpdateQuantity(product.id, cartQuantity + 1)}
+            onClick={() => cartQuantity < stock && onUpdateQuantity(productId, cartQuantity + 1)}
             disabled={cartQuantity >= stock}
             className={`p-2 rounded-r-lg transition-colors duration-200 ${
               cartQuantity >= stock
