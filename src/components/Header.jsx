@@ -36,29 +36,9 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                     </div>
                 </div>
                 
-                {/* Modern Navigation */}
-                <nav className="hidden lg:flex items-center gap-1">
-                    {['Products', 'About', 'Contact'].map((item, index) => (
-                        <button
-                            key={item}
-                            onClick={() => onNav(item === 'Products' ? 'home' : item.toLowerCase())}
-                            className={`relative px-8 py-3 font-medium text-lg transition-all duration-500 hover:scale-105 group ${
-                                darkMode ? 'text-white/80 hover:text-white' : 'text-black/80 hover:text-black'
-                            }`}
-                        >
-                            <span className="relative z-10">{item}</span>
-                            <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 ${
-                                darkMode 
-                                    ? 'bg-white/10 group-hover:bg-white/20' 
-                                    : 'bg-black/5 group-hover:bg-black/10'
-                            }`}></div>
-                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-500"></div>
-                        </button>
-                    ))}
-                </nav>
                 
-                {/* Right Section */}
-                <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 relative z-10">
+                {/* Center & Right Section */}
+                <div className="flex items-center justify-end flex-1 gap-2 lg:gap-4 relative z-10">
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
