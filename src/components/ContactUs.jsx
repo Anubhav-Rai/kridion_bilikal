@@ -28,7 +28,7 @@ const ContactUs = ({ darkMode }) => {
 
   const handleCallNow = () => {
     // This will open the phone app on mobile devices and prompt to call on desktop
-    window.location.href = 'tel:+919876543210';
+    window.location.href = 'tel:+917027851317';
   };
 
   const handleWhatsApp = () => {
