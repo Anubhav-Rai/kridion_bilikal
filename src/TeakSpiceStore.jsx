@@ -389,9 +389,6 @@ const TeakSpiceStore = () => {
           <rect width="100" height="100" fill="url(#grid)" className={darkMode ? 'text-white' : 'text-slate-900'} />
         </svg>
         
-        {/* Floating gradient orbs */}
-        <div className={`absolute top-20 right-20 w-72 h-72 rounded-full blur-3xl opacity-30 animate-pulse ${darkMode ? 'bg-gradient-to-r from-violet-600 to-purple-600' : 'bg-gradient-to-r from-blue-400 to-purple-400'}`}></div>
-        <div className={`absolute bottom-20 left-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse animation-delay-1000 ${darkMode ? 'bg-gradient-to-r from-emerald-600 to-teal-600' : 'bg-gradient-to-r from-emerald-400 to-teal-400'}`}></div>
       </div>
       <Header
         user={user}
@@ -409,7 +406,7 @@ const TeakSpiceStore = () => {
         {user && (
           <>
             {/* Desktop Sidebar */}
-            <aside className={`hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-16 transition-colors duration-300 ${
+            <aside className={`hidden lg:block w-64 shadow-sm border-r min-h-screen sticky top-20 transition-colors duration-300 ${
               darkMode 
                 ? 'bg-slate-800 border-slate-700' 
                 : 'bg-white border-slate-200'
@@ -490,7 +487,7 @@ const TeakSpiceStore = () => {
         )}
         
         {/* Main Content */}
-        <main className={`flex-1 px-6 lg:px-12 pt-32 pb-32 relative z-10 ${
+        <main className={`flex-1 px-6 lg:px-12 pt-28 pb-32 relative z-10 ${
           user ? 'max-w-none' : 'max-w-none'
         }`}>
           {currentView === 'home' && (
