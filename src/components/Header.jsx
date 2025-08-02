@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, ShoppingCart, LogOut, Moon, Sun } from 'lucide-react';
+import { User, ShoppingCart, LogOut, Moon, Sun, Info, Phone } from 'lucide-react';
 import { Home } from 'lucide-react';
 // src/components/Header.jsx
 import logo from '../assets/kridion-logo.png'  // adjust path to wherever you put the PNG
@@ -39,6 +39,34 @@ const Header = ({ user, cartCount, onLogout, onNav, onLogin, onRegister, darkMod
                 
                 {/* Center & Right Section */}
                 <div className="flex items-center justify-between flex-1 gap-4 lg:gap-8 relative z-10 ml-8 lg:ml-16">
+                    {/* Desktop Navigation for Non-logged-in users */}
+                    {!user && (
+                        <nav className="hidden lg:flex items-center gap-6">
+                            <button 
+                                onClick={() => onNav('about')} 
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+                                    darkMode 
+                                        ? 'text-slate-300 hover:text-white hover:bg-white/10' 
+                                        : 'text-slate-700 hover:text-slate-900 hover:bg-black/5'
+                                }`}
+                            >
+                                <Info size={16} />
+                                <span>About</span>
+                            </button>
+                            <button 
+                                onClick={() => onNav('contact')} 
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+                                    darkMode 
+                                        ? 'text-slate-300 hover:text-white hover:bg-white/10' 
+                                        : 'text-slate-700 hover:text-slate-900 hover:bg-black/5'
+                                }`}
+                            >
+                                <Phone size={16} />
+                                <span>Contact</span>
+                            </button>
+                        </nav>
+                    )}
+                    
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
