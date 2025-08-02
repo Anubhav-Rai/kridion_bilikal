@@ -88,14 +88,14 @@ const ContactUs = ({ darkMode }) => {
       <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Contact Form */}
         <div className="lg:col-span-2">
-          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
             darkMode 
-              ? 'bg-white/5 border-white/10' 
-              : 'bg-black/5 border-black/10'
+              ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+              : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
           }`}>
             <div className="flex items-center gap-3 mb-6">
-              <MessageSquare className="text-emerald-600" size={24} />
-              <h2 className={`text-2xl font-bold transition-colors duration-300 ${
+              <MessageSquare className="text-emerald-600 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <h2 className={`text-2xl font-bold transition-colors duration-300 group-hover:text-emerald-400 ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>Send us a Message</h2>
             </div>
@@ -239,18 +239,18 @@ const ContactUs = ({ darkMode }) => {
         {/* Contact Information */}
         <div className="space-y-4 sm:space-y-6">
           {/* Contact Details */}
-          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
             darkMode 
-              ? 'bg-white/5 border-white/10' 
-              : 'bg-black/5 border-black/10'
+              ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+              : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
           }`}>
-            <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+            <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 group-hover:text-emerald-400 ${
               darkMode ? 'text-white' : 'text-slate-900'
             }`}>Contact Information</h3>
             
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <Phone className="text-emerald-600 mt-1" size={18} />
+                <Phone className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
                 <div>
                   <h4 className={`font-medium text-sm transition-colors duration-300 ${
                     darkMode ? 'text-white' : 'text-slate-900'
@@ -265,7 +265,7 @@ const ContactUs = ({ darkMode }) => {
               </div>
               
               <div className="flex items-start gap-3">
-                <Mail className="text-emerald-600 mt-1" size={18} />
+                <Mail className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
                 <div>
                   <h4 className={`font-medium text-sm transition-colors duration-300 ${
                     darkMode ? 'text-white' : 'text-slate-900'
@@ -280,7 +280,7 @@ const ContactUs = ({ darkMode }) => {
               </div>
               
               <div className="flex items-start gap-3">
-                <MapPin className="text-emerald-600 mt-1" size={18} />
+                <MapPin className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
                 <div>
                   <h4 className={`font-medium text-sm transition-colors duration-300 ${
                     darkMode ? 'text-white' : 'text-slate-900'
@@ -296,7 +296,7 @@ const ContactUs = ({ darkMode }) => {
               </div>
               
               <div className="flex items-start gap-3">
-                <Clock className="text-emerald-600 mt-1" size={18} />
+                <Clock className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
                 <div>
                   <h4 className={`font-medium text-sm transition-colors duration-300 ${
                     darkMode ? 'text-white' : 'text-slate-900'
@@ -313,12 +313,12 @@ const ContactUs = ({ darkMode }) => {
           </div>
 
           {/* Business Information */}
-          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
             darkMode 
-              ? 'bg-white/5 border-white/10' 
-              : 'bg-black/5 border-black/10'
+              ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+              : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
           }`}>
-            <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+            <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 group-hover:text-emerald-400 ${
               darkMode ? 'text-white' : 'text-slate-900'
             }`}>Business Details</h3>
             
@@ -362,12 +362,12 @@ const ContactUs = ({ darkMode }) => {
           </div>
 
           {/* Quick Contact */}
-          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
             darkMode 
-              ? 'bg-emerald-500/10 border-emerald-400/20' 
-              : 'bg-emerald-500/10 border-emerald-500/20'
+              ? 'bg-emerald-500/10 border-emerald-400/20 hover:bg-emerald-500/20 hover:border-emerald-400/30' 
+              : 'bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/30'
           }`}>
-            <h3 className={`text-lg font-semibold mb-3 transition-colors duration-300 ${
+            <h3 className={`text-lg font-semibold mb-3 transition-colors duration-300 group-hover:text-emerald-300 ${
               darkMode ? 'text-emerald-400' : 'text-emerald-800'
             }`}>Need Immediate Help?</h3>
             
@@ -396,12 +396,12 @@ const ContactUs = ({ darkMode }) => {
       </div>
 
       {/* FAQ Section */}
-      <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+      <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
         darkMode 
-          ? 'bg-white/5 border-white/10' 
-          : 'bg-black/5 border-black/10'
+          ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+          : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
       }`}>
-        <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 ${
+        <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 group-hover:text-emerald-400 ${
           darkMode ? 'text-white' : 'text-slate-900'
         }`}>Frequently Asked Questions</h2>
         

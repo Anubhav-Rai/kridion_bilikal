@@ -25,12 +25,12 @@ const AboutUs = ({ darkMode }) => (
     <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
       {/* About Content */}
       <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
           darkMode 
-            ? 'bg-white/5 border-white/10' 
-            : 'bg-black/5 border-black/10'
+            ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+            : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
         }`}>
-          <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 ${
+          <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 group-hover:text-emerald-400 ${
             darkMode ? 'text-white' : 'text-slate-900'
           }`}>About KRIDION Agro</h2>
           
@@ -92,14 +92,14 @@ const AboutUs = ({ darkMode }) => (
 
         {/* Mission & Vision */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
             darkMode 
-              ? 'bg-white/5 border-white/10' 
-              : 'bg-black/5 border-black/10'
+              ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+              : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
           }`}>
             <div className="flex items-center gap-3 mb-3">
-              <Heart className="text-emerald-600" size={24} />
-              <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+              <Heart className="text-emerald-600 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <h3 className={`text-lg font-semibold transition-colors duration-300 group-hover:text-emerald-400 ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>Our Mission</h3>
             </div>
@@ -111,14 +111,14 @@ const AboutUs = ({ darkMode }) => (
             </p>
           </div>
 
-          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
             darkMode 
-              ? 'bg-white/5 border-white/10' 
-              : 'bg-black/5 border-black/10'
+              ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+              : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
           }`}>
             <div className="flex items-center gap-3 mb-3">
-              <Leaf className="text-emerald-600" size={24} />
-              <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+              <Leaf className="text-emerald-600 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <h3 className={`text-lg font-semibold transition-colors duration-300 group-hover:text-emerald-400 ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>Our Vision</h3>
             </div>
@@ -135,12 +135,12 @@ const AboutUs = ({ darkMode }) => (
       {/* Stats & Features */}
       <div className="space-y-6">
         {/* Stats */}
-        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
           darkMode 
-            ? 'bg-white/5 border-white/10' 
-            : 'bg-black/5 border-black/10'
+            ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+            : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
         }`}>
-          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 group-hover:text-emerald-400 ${
             darkMode ? 'text-white' : 'text-slate-900'
           }`}>Our Journey</h3>
           
@@ -184,18 +184,18 @@ const AboutUs = ({ darkMode }) => (
         </div>
 
         {/* Features */}
-        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
           darkMode 
-            ? 'bg-white/5 border-white/10' 
-            : 'bg-black/5 border-black/10'
+            ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+            : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
         }`}>
-          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 group-hover:text-emerald-400 ${
             darkMode ? 'text-white' : 'text-slate-900'
           }`}>Why Choose Us</h3>
           
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <Award className="text-emerald-600 mt-1" size={18} />
+              <Award className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
               <div>
                 <h4 className={`font-medium text-sm transition-colors duration-300 ${
                   darkMode ? 'text-white' : 'text-slate-900'
@@ -207,7 +207,7 @@ const AboutUs = ({ darkMode }) => (
             </div>
             
             <div className="flex items-start gap-3">
-              <Users className="text-emerald-600 mt-1" size={18} />
+              <Users className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
               <div>
                 <h4 className={`font-medium text-sm transition-colors duration-300 ${
                   darkMode ? 'text-white' : 'text-slate-900'
@@ -219,7 +219,7 @@ const AboutUs = ({ darkMode }) => (
             </div>
             
             <div className="flex items-start gap-3">
-              <MapPin className="text-emerald-600 mt-1" size={18} />
+              <MapPin className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
               <div>
                 <h4 className={`font-medium text-sm transition-colors duration-300 ${
                   darkMode ? 'text-white' : 'text-slate-900'
@@ -231,7 +231,7 @@ const AboutUs = ({ darkMode }) => (
             </div>
             
             <div className="flex items-start gap-3">
-              <Clock className="text-emerald-600 mt-1" size={18} />
+              <Clock className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform duration-300" size={18} />
               <div>
                 <h4 className={`font-medium text-sm transition-colors duration-300 ${
                   darkMode ? 'text-white' : 'text-slate-900'
@@ -247,12 +247,12 @@ const AboutUs = ({ darkMode }) => (
     </div>
 
     {/* Product Categories */}
-    <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
+    <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer group ${
       darkMode 
-        ? 'bg-white/5 border-white/10' 
-        : 'bg-black/5 border-black/10'
+        ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+        : 'bg-black/5 border-black/10 hover:bg-black/10 hover:border-black/20'
     }`}>
-      <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 ${
+      <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 group-hover:text-emerald-400 ${
         darkMode ? 'text-white' : 'text-slate-900'
       }`}>Our Product Categories</h2>
       
