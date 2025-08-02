@@ -25,10 +25,10 @@ const AboutUs = ({ darkMode }) => (
     <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
       {/* About Content */}
       <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-        <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
           darkMode 
-            ? 'bg-slate-800 border-slate-700' 
-            : 'bg-white border-slate-200'
+            ? 'bg-white/5 border-white/10' 
+            : 'bg-black/5 border-black/10'
         }`}>
           <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 ${
             darkMode ? 'text-white' : 'text-slate-900'
@@ -92,10 +92,10 @@ const AboutUs = ({ darkMode }) => (
 
         {/* Mission & Vision */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
             darkMode 
-              ? 'bg-slate-800 border-slate-700' 
-              : 'bg-white border-slate-200'
+              ? 'bg-white/5 border-white/10' 
+              : 'bg-black/5 border-black/10'
           }`}>
             <div className="flex items-center gap-3 mb-3">
               <Heart className="text-emerald-600" size={24} />
@@ -111,10 +111,10 @@ const AboutUs = ({ darkMode }) => (
             </p>
           </div>
 
-          <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+          <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
             darkMode 
-              ? 'bg-slate-800 border-slate-700' 
-              : 'bg-white border-slate-200'
+              ? 'bg-white/5 border-white/10' 
+              : 'bg-black/5 border-black/10'
           }`}>
             <div className="flex items-center gap-3 mb-3">
               <Leaf className="text-emerald-600" size={24} />
@@ -135,10 +135,10 @@ const AboutUs = ({ darkMode }) => (
       {/* Stats & Features */}
       <div className="space-y-6">
         {/* Stats */}
-        <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
           darkMode 
-            ? 'bg-slate-800 border-slate-700' 
-            : 'bg-white border-slate-200'
+            ? 'bg-white/5 border-white/10' 
+            : 'bg-black/5 border-black/10'
         }`}>
           <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
             darkMode ? 'text-white' : 'text-slate-900'
@@ -184,10 +184,10 @@ const AboutUs = ({ darkMode }) => (
         </div>
 
         {/* Features */}
-        <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+        <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
           darkMode 
-            ? 'bg-slate-800 border-slate-700' 
-            : 'bg-white border-slate-200'
+            ? 'bg-white/5 border-white/10' 
+            : 'bg-black/5 border-black/10'
         }`}>
           <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
             darkMode ? 'text-white' : 'text-slate-900'
@@ -247,10 +247,10 @@ const AboutUs = ({ darkMode }) => (
     </div>
 
     {/* Product Categories */}
-    <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+    <div className={`rounded-2xl p-6 backdrop-blur-xl border transition-all duration-500 ${
       darkMode 
-        ? 'bg-slate-800 border-slate-700' 
-        : 'bg-white border-slate-200'
+        ? 'bg-white/5 border-white/10' 
+        : 'bg-black/5 border-black/10'
     }`}>
       <h2 className={`text-2xl font-bold mb-6 transition-colors duration-300 ${
         darkMode ? 'text-white' : 'text-slate-900'
