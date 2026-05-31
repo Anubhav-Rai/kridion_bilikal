@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-paper font-sans text-ink;
+    font-size: 15px;
+  }
+}
+
+@layer components {
+  /* Buttons — square, quiet, MUJI-style */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-none px-5 py-2.5 text-sm tracking-wide transition-colors duration-150 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-ink text-paper hover:opacity-90 disabled:bg-line disabled:text-muted disabled:opacity-100;
+  }
+  .btn-outline {
+    @apply border border-ink text-ink hover:bg-ink hover:text-paper disabled:border-line disabled:text-muted disabled:hover:bg-transparent disabled:hover:text-muted;
+  }
+
+  /* Form fields */
+  .field {
+    @apply w-full rounded-none border border-line bg-surface px-3 py-2.5 text-sm text-ink transition-colors duration-150 placeholder:text-muted focus:border-ink focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-xs tracking-wide text-muted;
+  }
+
+  /* Small uppercase eyebrow label above page titles */
+  .eyebrow {
+    @apply text-xs uppercase tracking-[0.2em] text-muted;
+  }
+}
+
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;
@@ -9,11 +46,30 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  
   .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  .animate-toast-in {
+    animation: toast-in 0.2s ease-out;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-toast-in {
+    animation: none;
   }
 }
